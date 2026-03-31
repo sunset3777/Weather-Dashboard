@@ -1,0 +1,11 @@
+dist
+node_modules
+.eslintrc.cjs
+package.json
+package-lock.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+tailwind.config.js
+postcss.config.js
+index.html
