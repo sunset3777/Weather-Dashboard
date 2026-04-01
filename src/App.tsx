@@ -1,15 +1,23 @@
 import React from 'react';
+// import Header from './components/Header';
+import Hero from './components/Hero';
 
 /**
  * 基礎 App 元件
- * 僅用於初始化專案結構，不包含具體功能邏輯。
+ * 包含 Header 與 Hero 部分。
  */
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-blue-600">
-        Weather Dashboard 專案初始化完成
-      </h1>
+    <div className="min-h-screen bg-neutral-50 text-neutral-900">
+      {/* <Header /> */}
+      <Hero />
+      <main className="p-8">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-neutral-600 italic">
+            Dashboard Content Area below Hero section.
+          </p>
+        </div>
+      </main>
     </div>
   );
 };
