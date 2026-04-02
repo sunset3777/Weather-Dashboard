@@ -4,13 +4,17 @@ import { useWeather } from '../hooks/useWeather';
 import HeroLeft from './HeroLeft';
 import HeroRight from './HeroRight';
 
+interface HeroProps {
+  selectedCity: string;
+}
+
 /**
  * Hero 元件 (Main Section)
  * 負責數據獲取、錯誤處理與左右佈局分配。
  */
-const Hero: React.FC = () => {
+const Hero: React.FC<HeroProps> = ({ selectedCity }) => {
   const currentDayIndex = new Date().getDay();
-  const { data, loading, error } = useWeather();
+  const { data, loading, error } = useWeather(selectedCity);
 
   // 1. 讀取中狀態
   if (loading) {
