@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import MapSection from './components/MapSection';
 
 /**
  * 基礎 App 元件
- * 僅用於初始化專案結構，不包含具體功能邏輯。
+ * 包含 Header, Hero 與 MapSection 部分。
  */
 const App: React.FC = () => {
+  const [selectedCity, setSelectedCity] = useState('Taipei City');
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-blue-600">
-        Weather Dashboard 專案初始化完成
-      </h1>
+    <div className="min-h-screen bg-neutral-50 text-neutral-900">
+      <Header />
+      <Hero selectedCity={selectedCity} />
+      <MapSection onCitySelect={setSelectedCity} />
+      <main className="p-8">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-neutral-600 italic">
+            Dashboard Content Area below Map section.
+          </p>
+        </div>
+      </main>
     </div>
   );
 };
