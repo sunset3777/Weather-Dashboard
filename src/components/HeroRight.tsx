@@ -1,4 +1,3 @@
-import React from 'react';
 import { Droplets } from 'lucide-react';
 import {
   BarChart,
