@@ -14,7 +14,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
       <Header />
       <Hero selectedCity={selectedCity} />
-      <MapSection onCitySelect={setSelectedCity} />
+      <MapSection onCitySelect={setSelectedCity} selectedCity={selectedCity} />
       <main className="p-8">
         <div className="mx-auto max-w-7xl">
           <p className="text-neutral-600 italic">
