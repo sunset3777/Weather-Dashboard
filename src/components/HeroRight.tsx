@@ -12,7 +12,6 @@ import { WeatherReport } from '../types/weather';
 
 /**
  * 自定義 Recharts Tooltip
- * 為了相容 Recharts 的內部型別推導，我們直接解構 props
  */
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
@@ -34,29 +33,35 @@ interface HeroRightProps {
 
 const HeroRight: React.FC<HeroRightProps> = ({ data }) => {
   return (
-    <div className="md:col-span-1 bg-neutral-600 p-12 flex flex-col justify-between text-neutral-100 shadow-[inset_15px_0_30px_rgba(0,0,0,0.15)] overflow-hidden font-sans">
+    <div className="md:col-span-1 bg-neutral-400 p-12 flex flex-col justify-between text-neutral-900 shadow-[inset_15px_0_30px_rgba(0,0,0,0.05)] overflow-hidden font-sans border-l border-neutral-500/30">
       <div>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="bg-neutral-100 p-3 rounded-2xl shadow-xl">
-            <Droplets className="w-6 h-6 text-neutral-900" />
+        {/* Header Section */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="bg-neutral-900 p-3 rounded-2xl shadow-xl">
+            <Droplets className="w-6 h-6 text-sky-400" />
           </div>
           <div>
-            <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">
+            <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none text-neutral-900">
               Precipitation
             </h3>
-            <p className="text-xs font-black uppercase tracking-widest text-neutral-400 mt-1">
-              5-Hour Forecast Flow
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-600 mt-2">
+              Atmospheric Analysis <span className="text-sky-600 italic">5-HR</span>
             </p>
           </div>
         </div>
 
-        <p className="text-neutral-300 leading-relaxed font-medium text-base mb-12">
-          Dynamic hourly analysis powered by <strong>Recharts Engine</strong>.
-          High fidelity atmospheric metrics.
+        <p className="text-neutral-700 leading-relaxed font-medium text-base mb-12 border-l-2 border-sky-500 pl-4">
+          Dynamic hourly analysis powered by <strong className="text-sky-600">Recharts Engine</strong>. 
+          High fidelity tracking of local humidity shifts.
         </p>
 
-        {/* Recharts 圖表容器 */}
-        <div className="h-56 w-full bg-neutral-700/40 p-6 rounded-[2.5rem] border border-neutral-500/20 shadow-2xl relative">
+        {/* Recharts 圖表容器 - 改為更有質感的灰階配色 */}
+        <div className="h-60 w-full bg-neutral-500/10 p-6 rounded-[2.5rem] border border-neutral-900/5 shadow-[20px_20px_40px_rgba(0,0,0,0.05)] relative group overflow-hidden">
+          {/* 背景裝飾圖示 */}
+          <div className="absolute -right-4 -top-4 opacity-[0.03] rotate-12 transition-transform group-hover:rotate-0 duration-700">
+            <Droplets className="w-32 h-32 text-sky-600" />
+          </div>
+
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={data.hourly}
@@ -66,12 +71,12 @@ const HeroRight: React.FC<HeroRightProps> = ({ data }) => {
                 dataKey="time"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: '#a3a3a3', fontSize: 10, fontWeight: 900 }}
+                tick={{ fill: '#404040', fontSize: 10, fontWeight: 900 }}
                 dy={10}
               />
               <Tooltip
                 content={<CustomTooltip />}
-                cursor={{ fill: 'rgba(255, 255, 255, 0.05)', radius: 10 }}
+                cursor={{ fill: 'rgba(0, 0, 0, 0.05)', radius: 10 }}
               />
               <Bar
                 dataKey="precipitation"
@@ -81,14 +86,14 @@ const HeroRight: React.FC<HeroRightProps> = ({ data }) => {
                 {data.hourly.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={index === 0 ? '#0ea5e9' : '#525252'}
+                    fill={index === 0 ? '#0ea5e9' : '#737373'} // 藍色強調，深灰次之
                     style={{
                       filter:
                         index === 0
-                          ? 'drop-shadow(0 0 12px rgba(14, 165, 233, 0.5))'
+                          ? 'drop-shadow(0 0 8px rgba(14, 165, 233, 0.4))'
                           : 'none',
-                      transition: 'all 0.3s ease',
                     }}
+                    className="transition-all duration-300 hover:opacity-80"
                   />
                 ))}
               </Bar>
@@ -97,17 +102,17 @@ const HeroRight: React.FC<HeroRightProps> = ({ data }) => {
         </div>
       </div>
 
+      {/* 底部數據與按鈕 */}
       <div className="space-y-6 pt-10">
-        <div className="bg-neutral-800/60 backdrop-blur-md p-8 rounded-3xl border border-neutral-500/20 shadow-xl relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-1 h-full bg-neutral-100 group-hover:w-2 transition-all"></div>
-          <p className="text-sm text-neutral-300 leading-relaxed italic font-medium">
-            "The probability of rainfall is currently being monitored by
-            real-time satellites."
+        <div className="bg-neutral-500/20 backdrop-blur-sm p-8 rounded-3xl border border-neutral-900/5 relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-1 h-full bg-sky-500 group-hover:w-2 transition-all"></div>
+          <p className="text-xs text-neutral-600 leading-relaxed italic font-black uppercase tracking-widest">
+            "SATELLITE TELEMETRY INDICATES STABLE PRECIPITATION VECTORS ACROSS THE URBAN GRID."
           </p>
         </div>
 
-        <button className="group relative flex items-center justify-between w-full bg-neutral-900 text-neutral-100 font-black py-6 px-10 uppercase tracking-widest hover:bg-neutral-100 hover:text-neutral-900 transition-all rounded-full border-2 border-neutral-800 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
-          <span className="text-sm">Global Radar View</span>
+        <button className="group relative flex items-center justify-between w-full bg-neutral-900 text-white font-black py-6 px-10 uppercase tracking-widest hover:bg-white hover:text-neutral-900 transition-all rounded-full border-2 border-neutral-900 shadow-2xl">
+          <span className="text-xs">Global Radar Access</span>
           <span className="text-xl group-hover:translate-x-3 transition-transform duration-300">
             →
           </span>

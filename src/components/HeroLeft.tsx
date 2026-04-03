@@ -1,5 +1,12 @@
 import React from 'react';
-import { Sun, Cloud, CloudRain, CloudLightning, CloudSun, Wind } from 'lucide-react';
+import {
+  Sun,
+  Cloud,
+  CloudRain,
+  CloudLightning,
+  CloudSun,
+  Wind,
+} from 'lucide-react';
 import { useDraggableScroll } from '../hooks/useDraggableScroll';
 import { WeatherReport } from '../types/weather';
 
@@ -24,10 +31,15 @@ const WeatherIcon = ({
     case 'Partly Cloudy':
       return <CloudSun className={`${size} ${iconColor}`} strokeWidth={2.5} />;
     case 'Rainy':
-      return <CloudRain className={`${size} ${rainyColor}`} strokeWidth={2.5} />;
+      return (
+        <CloudRain className={`${size} ${rainyColor}`} strokeWidth={2.5} />
+      );
     case 'Storm':
       return (
-        <CloudLightning className={`${size} text-purple-400`} strokeWidth={2.5} />
+        <CloudLightning
+          className={`${size} text-purple-400`}
+          strokeWidth={2.5}
+        />
       );
     default:
       return <Wind className={`${size} ${windColor}`} strokeWidth={2.5} />;
@@ -47,7 +59,7 @@ const HeroLeft: React.FC<HeroLeftProps> = ({ data, currentDayIndex }) => {
   } = useDraggableScroll(2.5);
 
   return (
-    <div className="md:col-span-2 py-12 pl-8 overflow-hidden font-sans">
+    <div className="md:col-span-2 py-12 pl-8 overflow-hidden font-sans bg-neutral-300">
       <div className="flex items-center mb-8 px-4">
         <h2 className="text-3xl font-black text-neutral-900 uppercase italic tracking-tighter">
           {data.city}{' '}
