@@ -1,5 +1,12 @@
 import React from 'react';
-import { Sun, Cloud, CloudRain, CloudLightning, CloudSun, Wind } from 'lucide-react';
+import {
+  Sun,
+  Cloud,
+  CloudRain,
+  CloudLightning,
+  CloudSun,
+  Wind,
+} from 'lucide-react';
 import { useDraggableScroll } from '../hooks/useDraggableScroll';
 import { WeatherReport } from '../types/weather';
 
@@ -24,10 +31,15 @@ const WeatherIcon = ({
     case 'Partly Cloudy':
       return <CloudSun className={`${size} ${iconColor}`} strokeWidth={2.5} />;
     case 'Rainy':
-      return <CloudRain className={`${size} ${rainyColor}`} strokeWidth={2.5} />;
+      return (
+        <CloudRain className={`${size} ${rainyColor}`} strokeWidth={2.5} />
+      );
     case 'Storm':
       return (
-        <CloudLightning className={`${size} text-purple-400`} strokeWidth={2.5} />
+        <CloudLightning
+          className={`${size} text-purple-400`}
+          strokeWidth={2.5}
+        />
       );
     default:
       return <Wind className={`${size} ${windColor}`} strokeWidth={2.5} />;

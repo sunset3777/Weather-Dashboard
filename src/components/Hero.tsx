@@ -22,7 +22,7 @@ const Hero: React.FC<HeroProps> = ({ selectedCity }) => {
       <div className="w-full h-[600px] bg-neutral-300 flex flex-col items-center justify-center gap-4 text-neutral-900">
         <Loader2 className="w-12 h-12 animate-spin text-neutral-900" />
         <p className="text-sm font-black uppercase tracking-widest italic">
-          Synchronizing Data...
+          正在同步數據...
         </p>
       </div>
     );
@@ -32,7 +32,7 @@ const Hero: React.FC<HeroProps> = ({ selectedCity }) => {
   if (error || !data) {
     return (
       <div className="w-full h-[600px] bg-neutral-300 flex items-center justify-center font-black uppercase text-red-600">
-        {error || 'Link Interrupted.'}
+        {error || '連線中斷。'}
       </div>
     );
   }

@@ -4,6 +4,7 @@ export const fetchWeatherReport = async (
   city: string = 'Taipei City',
 ): Promise<WeatherReport> => {
   const currentHour = new Date().getHours();
+
   // 生成未來 5 小時的時間點 (例如: ["15:00", "16:00", ...])
   const hourlyData = Array.from({ length: 5 }, (_, i) => {
     const nextHour = (currentHour + i + 1) % 24;
