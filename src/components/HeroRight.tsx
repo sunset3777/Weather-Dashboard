@@ -11,9 +11,25 @@ import {
 import { WeatherReport } from '../types/weather';
 
 /**
- * 自定義 Recharts Tooltip
+ * 定義圖表資料點的型別
  */
-const CustomTooltip = ({ active, payload }: any) => {
+interface HourlyDataPoint {
+  time: string;
+  precipitation: number;
+}
+
+/**
+ * 自定義 Recharts Tooltip 型別
+ */
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    value: number;
+    payload: HourlyDataPoint; // 這裡改用具體的型別取代 any
+  }>;
+}
+
+const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-neutral-900 border border-neutral-700 p-3 rounded-xl shadow-2xl">
@@ -45,14 +61,16 @@ const HeroRight: React.FC<HeroRightProps> = ({ data }) => {
               Precipitation
             </h3>
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-600 mt-2">
-              Atmospheric Analysis <span className="text-sky-600 italic">5-HR</span>
+              Atmospheric Analysis{' '}
+              <span className="text-sky-600 italic">5-HR</span>
             </p>
           </div>
         </div>
 
         <p className="text-neutral-700 leading-relaxed font-medium text-base mb-12 border-l-2 border-sky-500 pl-4">
-          Dynamic hourly analysis powered by <strong className="text-sky-600">Recharts Engine</strong>. 
-          High fidelity tracking of local humidity shifts.
+          Dynamic hourly analysis powered by{' '}
+          <strong className="text-sky-600">Recharts Engine</strong>. High
+          fidelity tracking of local humidity shifts.
         </p>
 
         {/* Recharts 圖表容器 - 改為更有質感的灰階配色 */}
@@ -107,7 +125,8 @@ const HeroRight: React.FC<HeroRightProps> = ({ data }) => {
         <div className="bg-neutral-500/20 backdrop-blur-sm p-8 rounded-3xl border border-neutral-900/5 relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-1 h-full bg-sky-500 group-hover:w-2 transition-all"></div>
           <p className="text-xs text-neutral-600 leading-relaxed italic font-black uppercase tracking-widest">
-            "SATELLITE TELEMETRY INDICATES STABLE PRECIPITATION VECTORS ACROSS THE URBAN GRID."
+            "SATELLITE TELEMETRY INDICATES STABLE PRECIPITATION VECTORS ACROSS
+            THE URBAN GRID."
           </p>
         </div>
 
