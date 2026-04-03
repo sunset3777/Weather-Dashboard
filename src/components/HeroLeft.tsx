@@ -59,7 +59,7 @@ const HeroLeft: React.FC<HeroLeftProps> = ({ data, currentDayIndex }) => {
   } = useDraggableScroll(2.5);
 
   return (
-    <div className="md:col-span-2 py-12 pl-8 overflow-hidden font-sans">
+    <div className="md:col-span-2 py-12 pl-8 overflow-hidden font-sans bg-neutral-300">
       <div className="flex items-center mb-8 px-4">
         <h2 className="text-3xl font-black text-neutral-900 uppercase italic tracking-tighter">
           {data.city}{' '}
