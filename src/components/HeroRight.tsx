@@ -11,13 +11,21 @@ import {
 import { WeatherReport } from '../types/weather';
 
 /**
+ * 定義圖表資料點的型別
+ */
+interface HourlyDataPoint {
+  time: string;
+  precipitation: number;
+}
+
+/**
  * 自定義 Recharts Tooltip 型別
  */
 interface CustomTooltipProps {
   active?: boolean;
   payload?: Array<{
     value: number;
-    payload: any;
+    payload: HourlyDataPoint; // 這裡改用具體的型別取代 any
   }>;
 }
 
