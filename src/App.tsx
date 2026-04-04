@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import MapSection from './components/MapSection';
+import Footer from './components/Footer';
 
 /**
  * 基礎 App 元件
@@ -15,13 +16,7 @@ const App: React.FC = () => {
       <Header />
       <Hero selectedCity={selectedCity} />
       <MapSection onCitySelect={setSelectedCity} selectedCity={selectedCity} />
-      <main className="p-8">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-neutral-600 italic">
-            Dashboard Content Area below Map section.
-          </p>
-        </div>
-      </main>
+      <Footer />
     </div>
   );
 };
