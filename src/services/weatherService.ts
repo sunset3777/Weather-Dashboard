@@ -24,6 +24,10 @@ interface OpenWeatherMapResponse {
   list: OpenWeatherMapItem[];
   city: {
     name: string;
+    coord: {
+      lat: number;
+      lon: number;
+    };
   };
 }
 
@@ -91,7 +95,7 @@ const transformWeeklyData = (list: OpenWeatherMapItem[]): DailyForecast[] => {
 };
 
 export const fetchWeatherReport = async (
-  city: string = 'Taipei City',
+  city: string = 'Taipei',
 ): Promise<WeatherReport> => {
   if (!API_KEY) {
     throw new Error(
@@ -100,6 +104,7 @@ export const fetchWeatherReport = async (
   }
 
   try {
+    // 僅獲取預報資料，因其已包含座標資訊
     const response = await fetch(
       `${BASE_URL}/forecast?q=${encodeURIComponent(
         city,
@@ -117,6 +122,8 @@ export const fetchWeatherReport = async (
 
     return {
       city: rawData.city.name,
+      lat: rawData.city.coord.lat,
+      lon: rawData.city.coord.lon,
       weekly: transformWeeklyData(rawData.list),
       hourly: transformHourlyData(rawData.list),
     };

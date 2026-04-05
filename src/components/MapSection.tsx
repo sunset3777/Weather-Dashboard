@@ -1,20 +1,35 @@
+import React from 'react';
 import { MapPin, ArrowRight } from 'lucide-react';
+import { WeatherReport } from '../types/weather';
 
 interface MapSectionProps {
   onCitySelect: (city: string) => void;
   selectedCity: string;
+  weatherData: WeatherReport | null;
 }
+
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const MapSection: React.FC<MapSectionProps> = ({
   onCitySelect,
   selectedCity,
+  weatherData,
 }) => {
+  const [zoom, setZoom] = React.useState(11);
+
   const featuredCities = [
-    { name: 'Taipei City', cn: '台北市', temp: 24, status: '多雲時晴' },
-    { name: 'Taichung City', cn: '台中市', temp: 26, status: '晴朗' },
-    { name: 'Kaohsiung City', cn: '高雄市', temp: 28, status: '晴' },
-    { name: 'Tainan City', cn: '台南市', temp: 27, status: '多雲' },
+    { name: 'Taipei', cn: '台北市', temp: 24, status: '多雲時晴', lat: 25.033, lon: 121.565 },
+    { name: 'Taichung', cn: '台中市', temp: 26, status: '晴朗', lat: 24.147, lon: 120.673 },
+    { name: 'Kaohsiung', cn: '高雄市', temp: 28, status: '晴', lat: 22.627, lon: 120.301 },
+    { name: 'Tainan', cn: '台南市', temp: 27, status: '多雲', lat: 22.999, lon: 120.227 },
   ];
+
+  // 邏輯：優先使用天氣 API 回傳的真實座標
+  const lat = weatherData?.lat || featuredCities.find(c => c.name === selectedCity)?.lat || featuredCities[0].lat;
+  const lon = weatherData?.lon || featuredCities.find(c => c.name === selectedCity)?.lon || featuredCities[0].lon;
+
+  // 簡化版 Google Maps URL，用於測試連線
+  const googleMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=${zoom}&size=800x450&maptype=roadmap&markers=color:red%7C${lat},${lon}&key=${GOOGLE_MAPS_API_KEY}`;
 
   return (
     <section className="bg-neutral-600 p-8 border-b border-neutral-700">
@@ -39,7 +54,7 @@ const MapSection: React.FC<MapSectionProps> = ({
             </h2>
           </div>
           <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest pb-1">
-            Lat. 23.9° N / Long. 120.9° E
+            Lat. {lat}° N / Long. {lon}° E
           </div>
         </div>
 
@@ -61,7 +76,7 @@ const MapSection: React.FC<MapSectionProps> = ({
                   onClick={() => onCitySelect(city.name)}
                   className={`group cursor-pointer flex justify-between items-center py-6 border-b border-neutral-500/30 transition-all duration-300 ${
                     selectedCity === city.name
-                      ? 'px-4 bg-neutral-700'
+                      ? 'px-4 bg-neutral-700 border-l-4 border-sky-500'
                       : 'hover:px-4 hover:bg-neutral-500/10'
                   }`}
                 >
@@ -110,32 +125,70 @@ const MapSection: React.FC<MapSectionProps> = ({
 
           {/* 右側: 地圖介面 (66%) */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <div className="relative aspect-[16/9] bg-neutral-800 border border-neutral-700 group overflow-hidden grayscale">
-              <div className="absolute inset-0 bg-[url('https://www.google.com/maps/vt/pb=!1m4!1m3!1i10!2i868!3i443!2m3!1e0!2sm!3i624072895!3m8!2szh-TW!3sTW!5e1105!12m4!1e68!2m2!1sset!2sRoadmap!4e0!5m1!5f2')] bg-cover opacity-20 group-hover:opacity-40 transition-all duration-700"></div>
-
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center">
-                  <div className="w-1 h-1 bg-white/50 rounded-full"></div>
+            <div className="relative aspect-[16/9] bg-neutral-800 border border-neutral-700 group overflow-hidden">
+              {!GOOGLE_MAPS_API_KEY ? (
+                <div className="absolute inset-0 flex items-center justify-center text-neutral-500 font-black uppercase tracking-widest text-xs">
+                  Missing Google Maps API Key
+                </div>
+              ) : (
+                <img 
+                  src={googleMapUrl}
+                  alt={`Map of ${selectedCity}`}
+                  key={googleMapUrl} // 當 URL 改變時強制重新載入動畫
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 transition-all duration-1000 grayscale hover:grayscale-0 animate-in fade-in zoom-in-95"
+                  onError={(e) => {
+                    console.error('Google Maps Load Error. Check if Static Maps API is enabled and Billing is linked.');
+                    (e.target as HTMLImageElement).src = 'https://placehold.co/800x450/171717/404040?text=MAP+LOAD+ERROR';
+                  }}
+                />
+              )}
+              
+              {/* 科技感標註 (Overlay) */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 flex items-center justify-center opacity-40">
+                  <div className="w-24 h-24 border border-sky-500/20 rounded-full animate-pulse"></div>
                 </div>
               </div>
 
-              {/* 右下角標籤 */}
-              <div className="absolute bottom-6 right-6 bg-neutral-900 border border-neutral-700 px-4 py-2">
-                <p className="text-white font-black uppercase tracking-widest text-[9px]">
-                  VIEWING: {selectedCity || 'Regional'}
+              {/* 縮放控制器 (新) */}
+              <div className="absolute top-6 right-6 flex flex-col gap-2">
+                {[
+                  { label: 'STREET', val: 14 },
+                  { label: 'CITY', val: 11 },
+                  { label: 'REGION', val: 8 }
+                ].map((btn) => (
+                  <button
+                    key={btn.val}
+                    onClick={() => setZoom(btn.val)}
+                    className={`px-3 py-1 text-[8px] font-black border transition-all ${
+                      zoom === btn.val 
+                        ? 'bg-sky-500 border-sky-500 text-neutral-900' 
+                        : 'bg-neutral-900/80 border-neutral-700 text-neutral-400 hover:border-sky-500'
+                    }`}
+                  >
+                    {btn.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* 右下角數據標籤 */}
+              <div className="absolute bottom-6 right-6 bg-neutral-900/90 backdrop-blur-md border border-neutral-700 px-4 py-2 flex flex-col items-end">
+                <p className="text-sky-500 font-black uppercase tracking-widest text-[9px] mb-1">
+                  Target Identified
+                </p>
+                <p className="text-white font-black uppercase tracking-tight text-[11px]">
+                  {selectedCity}
+                </p>
+                <p className="text-neutral-500 font-mono text-[7px] mt-1 uppercase">
+                  LOC: {lat}N / {lon}E
                 </p>
               </div>
             </div>
 
             <div className="flex justify-between items-center text-[8px] font-bold text-neutral-500 uppercase tracking-[0.2em]">
-              <span>MAP SOURCE: DIGITALGLOBE / OSM</span>
+              <span>PROVIDER: GOOGLE EARTH IMAGERY SERVICE</span>
               <div className="flex gap-4">
-                <span className="cursor-pointer hover:text-white transition-colors uppercase">
-                  Layers
-                </span>
-                <span className="cursor-pointer hover:text-white transition-colors uppercase">
-                  Zoom
-                </span>
+                <span className="text-sky-500 animate-pulse uppercase tracking-[0.3em]">Satellite Link: Active</span>
               </div>
             </div>
           </div>

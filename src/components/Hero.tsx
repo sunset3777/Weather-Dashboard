@@ -1,19 +1,20 @@
 import { Loader2 } from 'lucide-react';
-import { useWeather } from '../hooks/useWeather';
+import { WeatherReport } from '../types/weather';
 import HeroLeft from './HeroLeft';
 import HeroRight from './HeroRight';
 
 interface HeroProps {
-  selectedCity: string;
+  data: WeatherReport | null;
+  loading: boolean;
+  error: string | null;
 }
 
 /**
  * Hero 元件 (Main Section)
  * 負責數據獲取、錯誤處理與左右佈局分配。
  */
-const Hero: React.FC<HeroProps> = ({ selectedCity }) => {
+const Hero: React.FC<HeroProps> = ({ data, loading, error }) => {
   const currentDayIndex = new Date().getDay();
-  const { data, loading, error } = useWeather(selectedCity);
 
   // 1. 讀取中狀態
   if (loading) {
