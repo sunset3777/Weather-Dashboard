@@ -11,10 +11,13 @@ export const useWeather = (city: string = 'Taipei City') => {
     const loadData = async () => {
       try {
         setLoading(true);
+        setError(null); // 重置錯誤狀態
         const report = await fetchWeatherReport(city);
         setData(report);
       } catch (err) {
-        setError('Failed to load weather data');
+        const errorMessage =
+          err instanceof Error ? err.message : 'Failed to load weather data';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

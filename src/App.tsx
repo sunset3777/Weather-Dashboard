@@ -13,7 +13,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
-      <Header />
+      <Header onSearch={setSelectedCity} />
       <Hero selectedCity={selectedCity} />
       <MapSection onCitySelect={setSelectedCity} selectedCity={selectedCity} />
       <Footer />

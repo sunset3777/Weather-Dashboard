@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 
+interface HeaderProps {
+  onSearch: (city: string) => void;
+}
+
 /**
  * Header 元件
  * 包含標題、搜尋框、亮暗模式切換按鈕 (UI 狀態) 與設定按鈕。
  * 主色調固定為灰黑色 (neutral-900)。
  */
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({ onSearch }) => {
   // 內部狀態僅用於切換按鈕圖示，不影響全域模式
   const [isDark, setIsDark] = useState(true);
+  const [inputValue, setInputValue] = useState('');
 
   const toggleDarkMode = () => setIsDark(!isDark);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && inputValue.trim()) {
+      onSearch(inputValue.trim());
+      setInputValue(''); // 搜尋後清空輸入框 (選配)
+    }
+  };
 
   return (
     <header className="flex w-full items-center justify-between bg-neutral-900 px-6 py-4 text-neutral-100 shadow-md">
@@ -41,6 +53,9 @@ const Header: React.FC = () => {
             type="text"
             className="w-full rounded-lg border-none bg-neutral-800 py-2 pl-10 pr-4 text-neutral-100 placeholder-neutral-500 outline-none transition-all focus:ring-2 focus:ring-blue-500"
             placeholder="Search city..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
         </div>
       </div>
