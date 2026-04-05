@@ -40,11 +40,63 @@ const mapCondition = (main: string): DailyForecast['condition'] => {
   return map[main] || 'Partly Cloudy';
 };
 
+/**
+ * 數據轉換：處理每小時預報 (將 3小時步長 轉為 連續5小時)
+ */
+const transformHourlyData = (list: OpenWeatherMapItem[]): HourlyForecast[] => {
+  const hourly: HourlyForecast[] = [];
+  const nowInSeconds = Math.floor(Date.now() / 1000);
+
+  for (let i = 0; i < 5; i++) {
+    const targetTimestamp = nowInSeconds + i * 3600;
+    const targetDate = new Date(targetTimestamp * 1000);
+    const hourLabel = `${targetDate.getHours().toString().padStart(2, '0')}:00`;
+
+    const closestMatch = list.reduce((prev, curr) => {
+      return Math.abs(curr.dt - targetTimestamp) <
+        Math.abs(prev.dt - targetTimestamp)
+        ? curr
+        : prev;
+    });
+
+    hourly.push({
+      time: hourLabel,
+      precipitation: Math.round(closestMatch.pop * 100),
+    });
+  }
+  return hourly;
+};
+
+/**
+ * 數據轉換：處理每日預報 (5天預報)
+ */
+const transformWeeklyData = (list: OpenWeatherMapItem[]): DailyForecast[] => {
+  const weekly: DailyForecast[] = [];
+  for (let i = 0; i < list.length; i += 8) {
+    const item = list[i];
+    const date = new Date(item.dt * 1000);
+    weekly.push({
+      day: date.toLocaleDateString('en-US', { weekday: 'short' }),
+      date: date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: '2-digit',
+      }),
+      temp: Math.round(item.main.temp),
+      condition: mapCondition(item.weather[0].main),
+      humidity: item.main.humidity,
+      wind: Math.round(item.wind.speed * 3.6),
+    });
+  }
+  return weekly;
+};
+
 export const fetchWeatherReport = async (
   city: string = 'Taipei City',
 ): Promise<WeatherReport> => {
   if (!API_KEY) {
-    throw new Error('找不到 API Key。請確保 .env 檔案存在且包含 VITE_WEATHER_API_KEY，並重啟開發伺服器。');
+    throw new Error(
+      '找不到 API Key。請確保 .env 檔案存在且包含 VITE_WEATHER_API_KEY，並重啟開發伺服器。',
+    );
   }
 
   try {
@@ -63,34 +115,10 @@ export const fetchWeatherReport = async (
 
     const rawData: OpenWeatherMapResponse = await response.json();
 
-    // 1. 處理每小時預報 (取前 5 筆，每筆間隔 3 小時)
-    const hourly: HourlyForecast[] = rawData.list
-      .slice(0, 5)
-      .map((item: OpenWeatherMapItem) => ({
-        time: new Date(item.dt * 1000).getHours().toString().padStart(2, '0') + ':00',
-        precipitation: Math.round(item.pop * 100),
-      }));
-
-    // 2. 處理每日預報 (每 8 筆代表 1 天)
-    const weekly: DailyForecast[] = [];
-    for (let i = 0; i < rawData.list.length; i += 8) {
-      const item = rawData.list[i];
-      const date = new Date(item.dt * 1000);
-      
-      weekly.push({
-        day: date.toLocaleDateString('en-US', { weekday: 'short' }),
-        date: date.toLocaleDateString('en-US', { month: 'short', day: '2-digit' }),
-        temp: Math.round(item.main.temp),
-        condition: mapCondition(item.weather[0].main),
-        humidity: item.main.humidity,
-        wind: Math.round(item.wind.speed * 3.6),
-      });
-    }
-
     return {
       city: rawData.city.name,
-      weekly: weekly,
-      hourly: hourly,
+      weekly: transformWeeklyData(rawData.list),
+      hourly: transformHourlyData(rawData.list),
     };
   } catch (error) {
     console.error('Weather Fetch Error:', error);
