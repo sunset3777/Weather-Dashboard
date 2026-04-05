@@ -66,14 +66,8 @@ const HeroRight: React.FC<HeroRightProps> = ({ data }) => {
           </div>
         </div>
 
-        <p className="text-neutral-700 leading-relaxed font-medium text-base mb-12 border-l-2 border-sky-500 pl-4">
-          Dynamic hourly analysis powered by{' '}
-          <strong className="text-sky-600">Recharts Engine</strong>. High
-          fidelity tracking of local humidity shifts.
-        </p>
-
         {/* Recharts 圖表容器 - 改為更有質感的灰階配色 */}
-        <div className="h-60 w-full bg-neutral-500/10 p-6 rounded-[2.5rem] border border-neutral-900/5 shadow-[20px_20px_40px_rgba(0,0,0,0.05)] relative group overflow-hidden">
+        <div className="h-64 w-full bg-neutral-500/10 p-6 rounded-[2.5rem] border border-neutral-900/5 shadow-[20px_20px_40px_rgba(0,0,0,0.05)] relative group overflow-hidden mt-8">
           {/* 背景裝飾圖示 */}
           <div className="absolute -right-4 -top-4 opacity-[0.03] rotate-12 transition-transform group-hover:rotate-0 duration-700">
             <Droplets className="w-32 h-32 text-sky-600" />
@@ -117,18 +111,37 @@ const HeroRight: React.FC<HeroRightProps> = ({ data }) => {
             </BarChart>
           </ResponsiveContainer>
         </div>
+
+        {/* Forecast Insight - 動態數據摘要 */}
+        <div className="mt-10 grid grid-cols-2 gap-4">
+          <div className="bg-neutral-500/10 p-6 rounded-3xl border border-neutral-900/5">
+            <p className="text-[10px] font-black text-neutral-600 uppercase tracking-widest mb-2">
+              Peak Chance
+            </p>
+            <div className="flex items-baseline gap-1">
+              <span className="text-3xl font-black">
+                {Math.max(...data.hourly.map((h) => h.precipitation))}%
+              </span>
+              <span className="text-[10px] font-bold text-neutral-500 uppercase italic">
+                Max
+              </span>
+            </div>
+          </div>
+          <div className="bg-neutral-500/10 p-6 rounded-3xl border border-neutral-900/5">
+            <p className="text-[10px] font-black text-neutral-600 uppercase tracking-widest mb-2">
+              Status
+            </p>
+            <p className="text-sm font-black uppercase italic leading-tight">
+              {Math.max(...data.hourly.map((h) => h.precipitation)) > 50
+                ? '建議攜帶雨具'
+                : '目前天氣穩定'}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* 底部數據與按鈕 */}
       <div className="space-y-6 pt-10">
-        <div className="bg-neutral-500/20 backdrop-blur-sm p-8 rounded-3xl border border-neutral-900/5 relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-1 h-full bg-sky-500 group-hover:w-2 transition-all"></div>
-          <p className="text-xs text-neutral-600 leading-relaxed italic font-black uppercase tracking-widest">
-            "SATELLITE TELEMETRY INDICATES STABLE PRECIPITATION VECTORS ACROSS
-            THE URBAN GRID."
-          </p>
-        </div>
-
         <button className="group relative flex items-center justify-between w-full bg-neutral-900 text-white font-black py-6 px-10 uppercase tracking-widest hover:bg-white hover:text-neutral-900 transition-all rounded-full border-2 border-neutral-900 shadow-2xl">
           <span className="text-xs">Global Radar Access</span>
           <span className="text-xl group-hover:translate-x-3 transition-transform duration-300">
