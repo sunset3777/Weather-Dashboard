@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import MapSection from './components/MapSection';
-import Footer from './components/Footer';
+import React from 'react';
+import WeatherPage from './pages/WeatherPage';
 
 /**
  * 基礎 App 元件
- * 包含 Header, Hero 與 MapSection 部分。
+ * 引入整合後的天氣頁面 (WeatherPage)。
  */
 const App: React.FC = () => {
-  const [selectedCity, setSelectedCity] = useState('Taipei City');
-
   return (
-    <div className="min-h-screen bg-neutral-50 text-neutral-900">
-      <Header onSearch={setSelectedCity} />
-      <Hero selectedCity={selectedCity} />
-      <MapSection onCitySelect={setSelectedCity} selectedCity={selectedCity} />
-      <Footer />
+    <div className="min-h-screen">
+      <WeatherPage />
     </div>
   );
 };

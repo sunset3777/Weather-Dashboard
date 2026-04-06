@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 
 interface HeaderProps {
   onSearch: (city: string) => void;
+  isDark: boolean;
+  toggleDarkMode: () => void;
 }
 
 /**
  * Header 元件
  * 包含標題、搜尋框、亮暗模式切換按鈕 (UI 狀態) 與設定按鈕。
- * 主色調固定為灰黑色 (neutral-900)。
+ * 主色調會隨亮暗模式切換。
  */
-const Header: React.FC<HeaderProps> = ({ onSearch }) => {
-  // 內部狀態僅用於切換按鈕圖示，不影響全域模式
-  const [isDark, setIsDark] = useState(true);
+const Header: React.FC<HeaderProps> = ({
+  onSearch,
+  isDark,
+  toggleDarkMode,
+}) => {
   const [inputValue, setInputValue] = useState('');
-
-  const toggleDarkMode = () => setIsDark(!isDark);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && inputValue.trim()) {
@@ -24,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
   };
 
   return (
-    <header className="flex w-full items-center justify-between bg-neutral-900 px-6 py-4 text-neutral-100 shadow-md">
+    <header className="flex w-full items-center justify-between bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 px-6 py-4 shadow-md transition-colors duration-300">
       {/* Title / Logo */}
       <div className="flex items-center space-x-2">
         <span className="text-xl font-bold tracking-tight">WeatherDash</span>
@@ -51,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
           </span>
           <input
             type="text"
-            className="w-full rounded-lg border-none bg-neutral-800 py-2 pl-10 pr-4 text-neutral-100 placeholder-neutral-500 outline-none transition-all focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-lg border-none bg-neutral-200 dark:bg-neutral-800 py-2 pl-10 pr-4 text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 outline-none transition-all focus:ring-2 focus:ring-blue-500"
             placeholder="Search city..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -62,10 +64,10 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
 
       {/* Actions: DarkMode & Settings */}
       <div className="flex items-center space-x-4">
-        {/* Toggle Dark Mode Button (UI Only) */}
+        {/* Toggle Dark Mode Button */}
         <button
           onClick={toggleDarkMode}
-          className="rounded-lg p-2 transition-colors hover:bg-neutral-800 focus:outline-none"
+          className="rounded-lg p-2 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-800 focus:outline-none"
           title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         >
           {isDark ? (
