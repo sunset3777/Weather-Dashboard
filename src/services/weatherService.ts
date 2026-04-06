@@ -94,6 +94,63 @@ const transformWeeklyData = (list: OpenWeatherMapItem[]): DailyForecast[] => {
   return weekly;
 };
 
+export interface CitySuggestion {
+  name: string;
+  chineseName?: string;
+  lat: number;
+  lon: number;
+  country: string;
+  state?: string;
+}
+
+interface GeocodingApiResponse {
+  name: string;
+  local_names?: Record<string, string>;
+  lat: number;
+  lon: number;
+  country: string;
+  state?: string;
+}
+
+/**
+ * 搜尋城市建議 (Geocoding API)
+ */
+export const fetchCitySuggestions = async (
+  query: string,
+): Promise<CitySuggestion[]> => {
+  if (!query || query.length < 2 || !API_KEY) return [];
+
+  try {
+    const response = await fetch(
+      `${BASE_URL.replace('data/2.5', 'geo/1.0')}/direct?q=${encodeURIComponent(
+        query,
+      )}&limit=5&appid=${API_KEY}`,
+    );
+
+    if (!response.ok) return [];
+
+    const data: GeocodingApiResponse[] = await response.json();
+    return data.map((item) => {
+      // 優先順序：1. 英文名 (en) 2. 原始名稱 (name)
+      const englishName = item.local_names?.en || item.name;
+      // 獲取中文名稱 (zh)
+      const chineseName = item.local_names?.zh;
+
+      return {
+        name: englishName,
+        chineseName: chineseName, // 新增中文名稱欄位
+        lat: item.lat,
+        lon: item.lon,
+        country: item.country,
+        state: item.state,
+      };
+    });
+  } catch (error) {
+    console.error('City Suggestions Fetch Error:', error);
+    return [];
+  }
+};
+
 export const fetchWeatherReport = async (
   city: string = 'Taipei City',
 ): Promise<WeatherReport> => {
