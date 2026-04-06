@@ -24,6 +24,10 @@ interface OpenWeatherMapResponse {
   list: OpenWeatherMapItem[];
   city: {
     name: string;
+    coord: {
+      lat: number;
+      lon: number;
+    };
   };
 }
 
@@ -119,6 +123,8 @@ export const fetchWeatherReport = async (
       city: rawData.city.name,
       weekly: transformWeeklyData(rawData.list),
       hourly: transformHourlyData(rawData.list),
+      lat: rawData.city.coord.lat,
+      lon: rawData.city.coord.lon,
     };
   } catch (error) {
     console.error('Weather Fetch Error:', error);

@@ -16,4 +16,6 @@ export interface WeatherReport {
   city: string;
   weekly: DailyForecast[];
   hourly: HourlyForecast[]; // 新增每小時數據
+  lat: number;
+  lon: number;
 }
