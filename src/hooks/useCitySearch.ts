@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { fetchCitySuggestions, CitySuggestion } from '../services/weatherService';
+import {
+  fetchCitySuggestions,
+  CitySuggestion,
+} from '../services/weatherService';
 
 /**
  * useCitySearch Hook
