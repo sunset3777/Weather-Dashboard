@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useCitySearch } from '../hooks/useCitySearch';
+import { SuggestionDropdown } from './Header/SuggestionDropdown';
 
 interface HeaderProps {
   onSearch: (city: string) => void;
@@ -7,33 +9,35 @@ interface HeaderProps {
 }
 
 /**
- * Header 元件
- * 包含標題、搜尋框、亮暗模式切換按鈕 (UI 狀態) 與設定按鈕。
- * 主色調會隨亮暗模式切換。
+ * Header 元件 (重構後)
+ * 透過 useCitySearch Hook 處理搜尋邏輯。
+ * 透過 SuggestionDropdown 子組件處理建議清單顯示。
  */
 const Header: React.FC<HeaderProps> = ({
   onSearch,
   isDark,
   toggleDarkMode,
 }) => {
-  const [inputValue, setInputValue] = useState('');
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
-      onSearch(inputValue.trim());
-      setInputValue(''); // 搜尋後清空輸入框 (選配)
-    }
-  };
+  const {
+    inputValue,
+    setInputValue,
+    suggestions,
+    showSuggestions,
+    setShowSuggestions,
+    dropdownRef,
+    handleSelect,
+    handleKeyDown,
+  } = useCitySearch(onSearch);
 
   return (
-    <header className="flex w-full items-center justify-between bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 px-6 py-4 shadow-md transition-colors duration-300">
+    <header className="flex w-full items-center justify-between bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 px-6 py-4 shadow-md transition-colors duration-300 z-50">
       {/* Title / Logo */}
       <div className="flex items-center space-x-2">
         <span className="text-xl font-bold tracking-tight">WeatherDash</span>
       </div>
 
-      {/* Search Input */}
-      <div className="mx-6 max-w-md flex-1">
+      {/* Search Input Container */}
+      <div className="mx-6 max-w-md flex-1 relative" ref={dropdownRef}>
         <div className="relative text-neutral-400">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
             <svg
@@ -53,18 +57,24 @@ const Header: React.FC<HeaderProps> = ({
           </span>
           <input
             type="text"
-            className="w-full rounded-lg border-none bg-neutral-200 dark:bg-neutral-800 py-2 pl-10 pr-4 text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 outline-none transition-all focus:ring-2 focus:ring-blue-500"
-            placeholder="Search city..."
+            className="w-full rounded-lg border-none bg-neutral-200 dark:bg-neutral-800 py-2 pl-10 pr-4 text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 outline-none transition-all focus:ring-2 focus:ring-sky-500"
+            placeholder="Search global cities..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
+            onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
           />
         </div>
+
+        <SuggestionDropdown
+          suggestions={suggestions}
+          onSelect={handleSelect}
+          visible={showSuggestions}
+        />
       </div>
 
       {/* Actions: DarkMode & Settings */}
       <div className="flex items-center space-x-4">
-        {/* Toggle Dark Mode Button */}
         <button
           onClick={toggleDarkMode}
           className="rounded-lg p-2 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-800 focus:outline-none"
@@ -103,8 +113,7 @@ const Header: React.FC<HeaderProps> = ({
           )}
         </button>
 
-        {/* Settings Button */}
-        <button className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-neutral-800 focus:outline-none">
+        <button className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-800 focus:outline-none">
           <svg
             className="h-6 w-6"
             fill="none"
