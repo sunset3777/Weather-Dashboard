@@ -11,13 +11,8 @@ import { useWeatherDashboard } from '../hooks/useWeatherDashboard';
  * 透過 useWeatherDashboard Hook 管理所有狀態，頁面僅負責 JSX 佈局與 Prop 分配。
  */
 const WeatherPage: React.FC = () => {
-  const {
-    selectedCity,
-    setSelectedCity,
-    isDark,
-    toggleDarkMode,
-    weatherData,
-  } = useWeatherDashboard();
+  const { selectedCity, setSelectedCity, isDark, toggleDarkMode, weatherData } =
+    useWeatherDashboard();
 
   return (
     <div
