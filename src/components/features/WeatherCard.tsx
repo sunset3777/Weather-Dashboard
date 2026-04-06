@@ -25,14 +25,18 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
         <div>
           <h3
             className={`text-2xl font-black uppercase tracking-tighter ${
-              isToday ? 'text-neutral-100' : 'text-neutral-900 dark:text-neutral-100'
+              isToday
+                ? 'text-neutral-100'
+                : 'text-neutral-900 dark:text-neutral-100'
             }`}
           >
             {item.day}
           </h3>
           <p
             className={`text-[10px] font-black uppercase tracking-[0.2em] mt-2 ${
-              isToday ? 'text-neutral-500' : 'text-neutral-400 dark:text-neutral-400'
+              isToday
+                ? 'text-neutral-500'
+                : 'text-neutral-400 dark:text-neutral-400'
             }`}
           >
             {item.date}
@@ -70,13 +74,17 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
       {/* 425px 以下切換為垂直堆疊 (Mobile Optimization) */}
       <div
         className={`grid grid-cols-2 max-[425px]:grid-cols-1 gap-8 pt-8 border-t-2 ${
-          isToday ? 'border-neutral-800' : 'border-neutral-200 dark:border-neutral-600'
+          isToday
+            ? 'border-neutral-800'
+            : 'border-neutral-200 dark:border-neutral-600'
         }`}
       >
         <div className="flex flex-col">
           <span
             className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${
-              isToday ? 'text-neutral-600' : 'text-neutral-400 dark:text-neutral-500'
+              isToday
+                ? 'text-neutral-600'
+                : 'text-neutral-400 dark:text-neutral-500'
             }`}
           >
             Humidity
@@ -88,7 +96,9 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
         <div className="flex flex-col">
           <span
             className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${
-              isToday ? 'text-neutral-600' : 'text-neutral-400 dark:text-neutral-500'
+              isToday
+                ? 'text-neutral-600'
+                : 'text-neutral-400 dark:text-neutral-500'
             }`}
           >
             Wind

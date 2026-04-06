@@ -32,7 +32,9 @@ export const WeatherIcon: React.FC<WeatherIconProps> = ({
     case 'Clear':
       return <Sun className={`${className} ${iconColor}`} strokeWidth={2.5} />;
     case 'Cloudy':
-      return <Cloud className={`${className} ${iconColor}`} strokeWidth={2.5} />;
+      return (
+        <Cloud className={`${className} ${iconColor}`} strokeWidth={2.5} />
+      );
     case 'Partly Cloudy':
       return (
         <CloudSun className={`${className} ${iconColor}`} strokeWidth={2.5} />
