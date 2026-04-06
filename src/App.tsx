@@ -1,15 +1,14 @@
 import React from 'react';
+import WeatherPage from './pages/WeatherPage';
 
 /**
  * 基礎 App 元件
- * 僅用於初始化專案結構，不包含具體功能邏輯。
+ * 引入整合後的天氣頁面 (WeatherPage)。
  */
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-blue-600">
-        Weather Dashboard 專案初始化完成
-      </h1>
+    <div className="min-h-screen">
+      <WeatherPage />
     </div>
   );
 };
