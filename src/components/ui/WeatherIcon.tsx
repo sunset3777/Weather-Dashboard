@@ -23,34 +23,26 @@ export const WeatherIcon: React.FC<WeatherIconProps> = ({
   isToday,
   className = 'w-10 h-10',
 }) => {
-  const iconColor = isToday ? 'text-yellow-400' : 'text-neutral-500';
-  const rainyColor = isToday ? 'text-blue-300' : 'text-blue-500';
-  const windColor = isToday ? 'text-neutral-400' : 'text-neutral-600';
+  // 顏色配置邏輯
+  const colors = {
+    yellow: isToday ? 'text-yellow-400' : 'text-neutral-500',
+    blue: isToday ? 'text-blue-300' : 'text-blue-500',
+    gray: isToday ? 'text-neutral-400' : 'text-neutral-600',
+    purple: 'text-purple-400',
+  };
 
-  switch (condition) {
-    case 'Sunny':
-    case 'Clear':
-      return <Sun className={`${className} ${iconColor}`} strokeWidth={2.5} />;
-    case 'Cloudy':
-      return (
-        <Cloud className={`${className} ${iconColor}`} strokeWidth={2.5} />
-      );
-    case 'Partly Cloudy':
-      return (
-        <CloudSun className={`${className} ${iconColor}`} strokeWidth={2.5} />
-      );
-    case 'Rainy':
-      return (
-        <CloudRain className={`${className} ${rainyColor}`} strokeWidth={2.5} />
-      );
-    case 'Storm':
-      return (
-        <CloudLightning
-          className={`${className} text-purple-400`}
-          strokeWidth={2.5}
-        />
-      );
-    default:
-      return <Wind className={`${className} ${windColor}`} strokeWidth={2.5} />;
-  }
+  // 圖示配置對照表
+  const ICON_CONFIG: Record<string, { icon: React.ElementType; color: string }> = {
+    'Sunny': { icon: Sun, color: colors.yellow },
+    'Clear': { icon: Sun, color: colors.yellow },
+    'Cloudy': { icon: Cloud, color: colors.yellow },
+    'Partly Cloudy': { icon: CloudSun, color: colors.yellow },
+    'Rainy': { icon: CloudRain, color: colors.blue },
+    'Storm': { icon: CloudLightning, color: colors.purple },
+    'Default': { icon: Wind, color: colors.gray },
+  };
+
+  const { icon: Icon, color } = ICON_CONFIG[condition] || ICON_CONFIG['Default'];
+
+  return <Icon className={`${className} ${color}`} strokeWidth={2.5} />;
 };
