@@ -12,6 +12,13 @@ export const useWeatherDashboard = () => {
   const [selectedCity, setSelectedCity] = useState('Taipei City');
   const [isDark, setIsDark] = useState(true);
 
+  // 獲取當前日期的英文格式 (如: Apr 08)，強制使用台北時區避免部署後時差導致的高亮錯誤
+  const todayDateString = new Date().toLocaleDateString('en-US', {
+    timeZone: 'Asia/Taipei',
+    month: 'short',
+    day: '2-digit',
+  });
+
   // 整合原有的 useWeather Hook
   const { data: weatherData, loading, error } = useWeather(selectedCity);
 
@@ -25,5 +32,6 @@ export const useWeatherDashboard = () => {
     weatherData,
     loading,
     error,
+    todayDateString,
   };
 };

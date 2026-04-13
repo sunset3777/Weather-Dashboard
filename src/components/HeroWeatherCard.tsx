@@ -4,7 +4,7 @@ import { WeatherCard } from './features/WeatherCard';
 
 interface HeroLeftProps {
   data: WeatherReport;
-  currentDayIndex: number;
+  todayDateString: string;
 }
 
 /**
@@ -12,7 +12,7 @@ interface HeroLeftProps {
  * 負責渲染所選城市的每週預報列表。
  * 使用 WeatherCard 子組件處理單個卡片的內容。
  */
-const HeroLeft: React.FC<HeroLeftProps> = ({ data, currentDayIndex }) => {
+const HeroLeft: React.FC<HeroLeftProps> = ({ data, todayDateString }) => {
   const {
     ref: scrollRef,
     isDragging,
@@ -37,11 +37,11 @@ const HeroLeft: React.FC<HeroLeftProps> = ({ data, currentDayIndex }) => {
           [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
           ${isDragging ? 'scroll-auto' : 'scroll-smooth'}`}
       >
-        {data.weekly.map((item, index) => (
+        {data.weekly.map((item) => (
           <WeatherCard
-            key={item.day}
+            key={item.date}
             item={item}
-            isToday={index === currentDayIndex}
+            isToday={item.date === todayDateString}
           />
         ))}
       </div>

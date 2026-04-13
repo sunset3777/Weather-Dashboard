@@ -73,13 +73,13 @@ export const PrecipitationChart: React.FC<PrecipitationChartProps> = ({
             radius={[12, 12, 12, 12]}
             animationDuration={1500}
           >
-            {data.map((_entry, index) => (
+            {data.map((entry, dataIndex) => (
               <Cell
-                key={`cell-${index}`}
-                fill={index === 0 ? '#0ea5e9' : '#737373'}
+                key={`cell-${entry.time}`}
+                fill={dataIndex === 0 ? '#0ea5e9' : '#737373'}
                 style={{
                   filter:
-                    index === 0
+                    dataIndex === 0
                       ? 'drop-shadow(0 0 8px rgba(14, 165, 233, 0.4))'
                       : 'none',
                 }}
