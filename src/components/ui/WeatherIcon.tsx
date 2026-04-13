@@ -23,6 +23,7 @@ export const WeatherIcon: React.FC<WeatherIconProps> = ({
   className = 'w-10 h-10',
 }) => {
   // 顏色配置邏輯
+  // 顏色配置邏輯
   const colors = {
     yellow: isToday ? 'text-yellow-400' : 'text-neutral-500',
     blue: isToday ? 'text-blue-300' : 'text-blue-500',

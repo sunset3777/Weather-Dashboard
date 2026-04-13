@@ -1,3 +1,4 @@
+import React from 'react';
 import { WeatherIcon } from '../ui/WeatherIcon';
 import { DailyForecast } from '../../types/weather';
 
@@ -52,6 +53,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
     <div
       className={`flex-shrink-0 w-72 md:w-85 p-8 rounded-[3.5rem] shadow-2xl transition-all duration-500 snap-center border-2 pointer-events-none ${containerClasses}`}
     >
+      {/* 標題區域：日期與天氣圖示 */}
       <div className="flex justify-between items-start mb-12">
         <div>
           <h3
@@ -70,6 +72,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
         </div>
       </div>
 
+      {/* 核心數據區域：溫度與天氣狀況 */}
       <div className="mb-14">
         <div className="flex items-baseline gap-2">
           <span className="text-8xl font-black tracking-tighter leading-none">
@@ -86,7 +89,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
         </p>
       </div>
 
-      {/* 425px 以下切換為垂直堆疊 (Mobile Optimization) */}
+      {/* 底部數據區域：濕度與風速 (優化後的 RWD 網格) */}
       <div
         className={`grid grid-cols-2 max-[425px]:grid-cols-1 gap-8 pt-8 border-t-2 ${gridBorderClasses}`}
       >
@@ -104,10 +107,10 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
           <span
             className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${metaLabelClasses}`}
           >
-            Wind
+            Wind Speed
           </span>
           <span className="text-2xl font-black tracking-tighter">
-            {item.wind}
+            {item.windSpeed}
             <small className="ml-1 text-xs font-bold opacity-40">km/h</small>
           </span>
         </div>
@@ -115,3 +118,5 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
     </div>
   );
 };
+
+export default WeatherCard;
