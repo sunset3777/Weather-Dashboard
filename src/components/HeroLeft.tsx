@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDraggableScroll } from '../hooks/useDraggableScroll';
 import { WeatherReport } from '../types/weather';
 import { WeatherCard } from './features/WeatherCard';

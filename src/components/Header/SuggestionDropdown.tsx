@@ -1,4 +1,3 @@
-import React from 'react';
 import { CitySuggestion } from '../../services/weatherService';
 
 interface SuggestionDropdownProps {

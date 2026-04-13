@@ -54,7 +54,9 @@ export const CityList: React.FC<CityListProps> = ({
             >
               <div>
                 <div className="flex items-baseline gap-3">
-                  <h4 className={`font-black uppercase text-2xl tracking-tight transition-colors ${cityNameClasses}`}>
+                  <h4
+                    className={`font-black uppercase text-2xl tracking-tight transition-colors ${cityNameClasses}`}
+                  >
                     {city.name}
                   </h4>
                   <span className="text-xs font-bold text-neutral-500">
@@ -67,10 +69,14 @@ export const CityList: React.FC<CityListProps> = ({
               </div>
 
               <div className="flex items-center gap-6">
-                <div className={`text-2xl font-black italic tracking-tighter ${tempClasses}`}>
+                <div
+                  className={`text-2xl font-black italic tracking-tighter ${tempClasses}`}
+                >
                   {city.temp}°
                 </div>
-                <ArrowRight className={`w-4 h-4 transition-all duration-300 ${arrowClasses}`} />
+                <ArrowRight
+                  className={`w-4 h-4 transition-all duration-300 ${arrowClasses}`}
+                />
               </div>
             </div>
           );

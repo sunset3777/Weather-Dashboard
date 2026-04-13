@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Sun,
   Cloud,
@@ -32,17 +31,21 @@ export const WeatherIcon: React.FC<WeatherIconProps> = ({
   };
 
   // 圖示配置對照表
-  const ICON_CONFIG: Record<string, { icon: React.ElementType; color: string }> = {
-    'Sunny': { icon: Sun, color: colors.yellow },
-    'Clear': { icon: Sun, color: colors.yellow },
-    'Cloudy': { icon: Cloud, color: colors.yellow },
+  const ICON_CONFIG: Record<
+    string,
+    { icon: React.ElementType; color: string }
+  > = {
+    Sunny: { icon: Sun, color: colors.yellow },
+    Clear: { icon: Sun, color: colors.yellow },
+    Cloudy: { icon: Cloud, color: colors.yellow },
     'Partly Cloudy': { icon: CloudSun, color: colors.yellow },
-    'Rainy': { icon: CloudRain, color: colors.blue },
-    'Storm': { icon: CloudLightning, color: colors.purple },
-    'Default': { icon: Wind, color: colors.gray },
+    Rainy: { icon: CloudRain, color: colors.blue },
+    Storm: { icon: CloudLightning, color: colors.purple },
+    Default: { icon: Wind, color: colors.gray },
   };
 
-  const { icon: Icon, color } = ICON_CONFIG[condition] || ICON_CONFIG['Default'];
+  const { icon: Icon, color } =
+    ICON_CONFIG[condition] || ICON_CONFIG['Default'];
 
   return <Icon className={`${className} ${color}`} strokeWidth={2.5} />;
 };

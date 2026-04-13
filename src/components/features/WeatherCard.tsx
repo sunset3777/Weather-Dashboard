@@ -1,4 +1,3 @@
-import React from 'react';
 import { WeatherIcon } from '../ui/WeatherIcon';
 import { DailyForecast } from '../../types/weather';
 
