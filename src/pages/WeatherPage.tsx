@@ -1,4 +1,3 @@
-import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import MapSection from '../components/MapSection';
@@ -31,10 +30,7 @@ const WeatherPage: React.FC = () => {
           toggleDarkMode={toggleDarkMode}
         />
         <main>
-          <Hero
-            selectedCity={selectedCity}
-            todayDateString={todayDateString}
-          />
+          <Hero selectedCity={selectedCity} todayDateString={todayDateString} />
           <MapSection
             onCitySelect={setSelectedCity}
             selectedCity={selectedCity}

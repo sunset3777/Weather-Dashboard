@@ -1,7 +1,7 @@
 import { Loader2 } from 'lucide-react';
 import { useWeather } from '../hooks/useWeather';
-import HeroLeft from './HeroLeft';
-import HeroRight from './HeroRight';
+import HeroLeft from './HeroWeatherCard';
+import HeroRight from './HeroRainPercentage';
 
 interface HeroProps {
   selectedCity: string;

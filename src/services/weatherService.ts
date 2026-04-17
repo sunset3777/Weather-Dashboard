@@ -88,7 +88,7 @@ const transformWeeklyData = (list: OpenWeatherMapItem[]): DailyForecast[] => {
       temp: Math.round(item.main.temp),
       condition: mapCondition(item.weather[0].main),
       humidity: item.main.humidity,
-      wind: Math.round(item.wind.speed * 3.6),
+      windSpeed: Math.round(item.wind.speed * 3.6),
     });
   }
   return weekly;

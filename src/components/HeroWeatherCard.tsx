@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDraggableScroll } from '../hooks/useDraggableScroll';
 import { WeatherReport } from '../types/weather';
 import { WeatherCard } from './features/WeatherCard';
@@ -25,7 +24,7 @@ const HeroLeft: React.FC<HeroLeftProps> = ({ data, todayDateString }) => {
       <div className="flex items-center mb-8 px-4">
         <h2 className="text-3xl font-black text-neutral-900 dark:text-neutral-100 uppercase italic tracking-tighter">
           {data.city}{' '}
-          <span className="text-neutral-500 dark:text-neutral-400 not-italic font-medium ml-2 text-xl tracking-normal italic">
+          <span className="text-neutral-500 dark:text-neutral-400 font-medium ml-2 text-xl tracking-normal italic">
             Flow
           </span>
         </h2>

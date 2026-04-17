@@ -4,7 +4,7 @@ export interface DailyForecast {
   temp: number;
   condition: 'Sunny' | 'Clear' | 'Cloudy' | 'Partly Cloudy' | 'Rainy' | 'Storm';
   humidity: number;
-  wind: number;
+  windSpeed: number;
 }
 
 export interface HourlyForecast {

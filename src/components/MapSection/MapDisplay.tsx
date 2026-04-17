@@ -54,19 +54,22 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
             { label: 'STREET', val: 14 },
             { label: 'CITY', val: 11 },
             { label: 'REGION', val: 8 },
-          ].map((btn) => (
-            <button
-              key={btn.val}
-              onClick={() => setZoom(btn.val)}
-              className={`px-3 py-1 text-[8px] font-black border transition-all ${
-                zoom === btn.val
-                  ? 'bg-sky-500 border-sky-500 text-neutral-900'
-                  : 'bg-neutral-900/80 border-neutral-700 text-neutral-400 hover:border-sky-500'
-              }`}
-            >
-              {btn.label}
-            </button>
-          ))}
+          ].map((btn) => {
+            const isActive = zoom === btn.val;
+            const btnClasses = isActive
+              ? 'bg-sky-500 border-sky-500 text-neutral-900'
+              : 'bg-neutral-900/80 border-neutral-700 text-neutral-400 hover:border-sky-500';
+
+            return (
+              <button
+                key={btn.val}
+                onClick={() => setZoom(btn.val)}
+                className={`px-3 py-1 text-[8px] font-black border transition-all ${btnClasses}`}
+              >
+                {btn.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* 右下角數據標籤 */}
