@@ -1,13 +1,10 @@
-import { ReactNode } from 'react';
-
 export interface DailyForecast {
-  windSpeed: ReactNode;
   day: string;
   date: string;
   temp: number;
   condition: 'Sunny' | 'Clear' | 'Cloudy' | 'Partly Cloudy' | 'Rainy' | 'Storm';
   humidity: number;
-  wind: number;
+  windSpeed: number;
 }
 
 export interface HourlyForecast {
