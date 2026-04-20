@@ -1,4 +1,3 @@
-import React from 'react';
 import { Droplets } from 'lucide-react';
 import { WeatherReport } from '../types/weather';
 import { PrecipitationChart } from './features/PrecipitationChart';

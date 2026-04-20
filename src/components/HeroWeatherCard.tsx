@@ -1,11 +1,10 @@
-import React from 'react';
 import { useDraggableScroll } from '../hooks/useDraggableScroll';
 import { WeatherReport } from '../types/weather';
 import { WeatherCard } from './features/WeatherCard';
 
 interface HeroLeftProps {
   data: WeatherReport;
-  currentDayIndex: number;
+  todayDateString: string;
 }
 
 /**
@@ -13,7 +12,7 @@ interface HeroLeftProps {
  * 負責渲染所選城市的每週預報列表。
  * 使用 WeatherCard 子組件處理單個卡片的內容。
  */
-const HeroLeft: React.FC<HeroLeftProps> = ({ data, currentDayIndex }) => {
+const HeroLeft: React.FC<HeroLeftProps> = ({ data, todayDateString }) => {
   const {
     ref: scrollRef,
     isDragging,
@@ -25,7 +24,7 @@ const HeroLeft: React.FC<HeroLeftProps> = ({ data, currentDayIndex }) => {
       <div className="flex items-center mb-8 px-4">
         <h2 className="text-3xl font-black text-neutral-900 dark:text-neutral-100 uppercase italic tracking-tighter">
           {data.city}{' '}
-          <span className="text-neutral-500 dark:text-neutral-400 not-italic font-medium ml-2 text-xl tracking-normal italic">
+          <span className="text-neutral-500 dark:text-neutral-400 font-medium ml-2 text-xl tracking-normal italic">
             Flow
           </span>
         </h2>
@@ -38,11 +37,11 @@ const HeroLeft: React.FC<HeroLeftProps> = ({ data, currentDayIndex }) => {
           [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
           ${isDragging ? 'scroll-auto' : 'scroll-smooth'}`}
       >
-        {data.weekly.map((item, index) => (
+        {data.weekly.map((item) => (
           <WeatherCard
-            key={item.day}
+            key={item.date}
             item={item}
-            isToday={index === currentDayIndex}
+            isToday={item.date === todayDateString}
           />
         ))}
       </div>

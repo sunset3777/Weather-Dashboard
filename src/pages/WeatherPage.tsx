@@ -1,4 +1,3 @@
-import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import MapSection from '../components/MapSection';
@@ -11,8 +10,14 @@ import { useWeatherDashboard } from '../hooks/useWeatherDashboard';
  * 透過 useWeatherDashboard Hook 管理所有狀態，頁面僅負責 JSX 佈局與 Prop 分配。
  */
 const WeatherPage: React.FC = () => {
-  const { selectedCity, setSelectedCity, isDark, toggleDarkMode, weatherData } =
-    useWeatherDashboard();
+  const {
+    selectedCity,
+    setSelectedCity,
+    isDark,
+    toggleDarkMode,
+    weatherData,
+    todayDateString,
+  } = useWeatherDashboard();
 
   return (
     <div
@@ -25,7 +30,7 @@ const WeatherPage: React.FC = () => {
           toggleDarkMode={toggleDarkMode}
         />
         <main>
-          <Hero selectedCity={selectedCity} />
+          <Hero selectedCity={selectedCity} todayDateString={todayDateString} />
           <MapSection
             onCitySelect={setSelectedCity}
             selectedCity={selectedCity}
