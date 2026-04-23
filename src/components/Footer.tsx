@@ -31,8 +31,6 @@ const Footer: React.FC = () => {
           <div className="flex flex-col md:items-end gap-1 text-[9px] font-bold uppercase tracking-[0.2em] opacity-50">
             <div>&copy; {currentYear} WeatherDash Intelligence.</div>
             <div className="flex gap-3 mt-1 justify-center md:justify-end">
-              <span>v2.4.0</span>
-              <span className="opacity-30">|</span>
               <span>Regional Intelligence System</span>
             </div>
           </div>
