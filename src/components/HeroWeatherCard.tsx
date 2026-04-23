@@ -8,11 +8,11 @@ interface HeroLeftProps {
 }
 
 /**
- * HeroLeft 元件
+ * HeroWeatherCardList 元件
  * 負責渲染所選城市的每週預報列表。
  * 使用 WeatherCard 子組件處理單個卡片的內容。
  */
-const HeroLeft: React.FC<HeroLeftProps> = ({ data, todayDateString }) => {
+const HeroWeatherCardList: React.FC<HeroLeftProps> = ({ data, todayDateString }) => {
   const {
     ref: scrollRef,
     isDragging,
@@ -20,12 +20,12 @@ const HeroLeft: React.FC<HeroLeftProps> = ({ data, todayDateString }) => {
   } = useDraggableScroll(2.5);
 
   return (
-    <div className="md:col-span-2 py-12 pl-8 overflow-hidden font-sans bg-neutral-200 dark:bg-neutral-800 transition-colors duration-300">
+    <div className="w-full py-12 px-8 md:px-16 overflow-hidden font-sans bg-neutral-200 dark:bg-neutral-800 transition-colors duration-300">
       <div className="flex items-center mb-8 px-4">
         <h2 className="text-3xl font-black text-neutral-900 dark:text-neutral-100 uppercase italic tracking-tighter">
           {data.city}{' '}
           <span className="text-neutral-500 dark:text-neutral-400 font-medium ml-2 text-xl tracking-normal italic">
-            Flow
+            Weekly Flow
           </span>
         </h2>
       </div>
@@ -49,4 +49,4 @@ const HeroLeft: React.FC<HeroLeftProps> = ({ data, todayDateString }) => {
   );
 };
 
-export default HeroLeft;
+export default HeroWeatherCardList;

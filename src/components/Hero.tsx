@@ -1,7 +1,6 @@
 import { Loader2 } from 'lucide-react';
 import { useWeather } from '../hooks/useWeather';
-import HeroLeft from './HeroWeatherCard';
-import HeroRight from './HeroRainPercentage';
+import HeroWeatherCardList from './HeroWeatherCard';
 
 interface HeroProps {
   selectedCity: string;
@@ -10,7 +9,7 @@ interface HeroProps {
 
 /**
  * Hero 元件 (Main Section)
- * 負責數據獲取、錯誤處理與左右佈局分配。
+ * 負責數據獲取、錯誤處理與排版。
  */
 const Hero: React.FC<HeroProps> = ({ selectedCity, todayDateString }) => {
   const { data, loading, error } = useWeather(selectedCity);
@@ -38,9 +37,8 @@ const Hero: React.FC<HeroProps> = ({ selectedCity, todayDateString }) => {
 
   // 3. 正常渲染佈局
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 w-full bg-neutral-200 dark:bg-neutral-800 border-b border-neutral-300 dark:border-neutral-700 transition-colors duration-300">
-      <HeroLeft data={data} todayDateString={todayDateString} />
-      <HeroRight data={data} />
+    <section className="w-full bg-neutral-200 dark:bg-neutral-800 border-b border-neutral-300 dark:border-neutral-700 transition-colors duration-300">
+      <HeroWeatherCardList data={data} todayDateString={todayDateString} />
     </section>
   );
 };

@@ -5,6 +5,7 @@ export interface DailyForecast {
   condition: 'Sunny' | 'Clear' | 'Cloudy' | 'Partly Cloudy' | 'Rainy' | 'Storm';
   humidity: number;
   windSpeed: number;
+  precipitation: number; // 降雨機率 0-100
 }
 
 export interface HourlyForecast {
