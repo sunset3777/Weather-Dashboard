@@ -22,12 +22,13 @@ export const WeatherIcon: React.FC<WeatherIconProps> = ({
   isToday,
   className = 'w-10 h-10',
 }) => {
-  // 顏色配置邏輯
-  // 顏色配置邏輯
+  // 顏色配置邏輯 (色彩增強版)
   const colors = {
-    yellow: isToday ? 'text-yellow-400' : 'text-neutral-500',
-    blue: isToday ? 'text-blue-300' : 'text-blue-500',
-    gray: isToday ? 'text-neutral-400' : 'text-neutral-600',
+    yellow: 'text-yellow-400',
+    blue: 'text-blue-400',
+    sky: 'text-sky-300',
+    // 針對雲朵與風速圖示：深色背景用白色，淺色背景用半灰色
+    gray: isToday ? 'text-white' : 'text-neutral-400 dark:text-white',
     purple: 'text-purple-400',
   };
 
@@ -38,8 +39,8 @@ export const WeatherIcon: React.FC<WeatherIconProps> = ({
   > = {
     Sunny: { icon: Sun, color: colors.yellow },
     Clear: { icon: Sun, color: colors.yellow },
-    Cloudy: { icon: Cloud, color: colors.yellow },
-    'Partly Cloudy': { icon: CloudSun, color: colors.yellow },
+    Cloudy: { icon: Cloud, color: colors.gray },
+    'Partly Cloudy': { icon: CloudSun, color: colors.sky },
     Rainy: { icon: CloudRain, color: colors.blue },
     Storm: { icon: CloudLightning, color: colors.purple },
     Default: { icon: Wind, color: colors.gray },
