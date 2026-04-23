@@ -12,7 +12,10 @@ interface HeroLeftProps {
  * 負責渲染所選城市的每週預報列表。
  * 使用 WeatherCard 子組件處理單個卡片的內容。
  */
-const HeroWeatherCardList: React.FC<HeroLeftProps> = ({ data, todayDateString }) => {
+const HeroWeatherCardList: React.FC<HeroLeftProps> = ({
+  data,
+  todayDateString,
+}) => {
   const {
     ref: scrollRef,
     isDragging,
