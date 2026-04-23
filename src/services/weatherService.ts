@@ -101,6 +101,7 @@ export interface CitySuggestion {
   lon: number;
   country: string;
   state?: string;
+  chineseName?: string;
 }
 
 interface GeocodingApiResponse {
@@ -132,6 +133,8 @@ export const fetchCitySuggestions = async (
     const data: GeocodingApiResponse[] = await response.json();
     return data.map((item) => {
       const englishName = item.local_names?.en || item.name;
+      const chineseName =
+        item.local_names?.zh || item.local_names?.['zh-tw'] || undefined;
 
       return {
         name: englishName,
@@ -139,6 +142,7 @@ export const fetchCitySuggestions = async (
         lon: item.lon,
         country: item.country,
         state: item.state,
+        chineseName,
       };
     });
   } catch (error) {
