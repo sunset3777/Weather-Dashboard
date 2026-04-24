@@ -60,7 +60,10 @@ const WeatherPage: React.FC = () => {
               );
             }}
           >
-            <Hero selectedCity={selectedCity} todayDateString={todayDateString} />
+            <Hero
+              selectedCity={selectedCity}
+              todayDateString={todayDateString}
+            />
             <MapSection
               onCitySelect={setSelectedCity}
               selectedCity={selectedCity}
