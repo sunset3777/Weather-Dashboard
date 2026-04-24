@@ -50,7 +50,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
 
   return (
     <div
-      className={`flex-shrink-0 w-72 md:w-85 p-8 rounded-[3.5rem] shadow-2xl transition-all duration-500 snap-center border-2 pointer-events-none ${containerClasses}`}
+      className={`flex-shrink-0 w-72 md:w-80 p-8 rounded-[3.5rem] shadow-2xl transition-all duration-500 snap-center border-2 pointer-events-none ${containerClasses}`}
     >
       {/* 標題區域：日期與天氣圖示 */}
       <div className="flex justify-between items-start mb-12">
@@ -88,29 +88,41 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
         </p>
       </div>
 
-      {/* 底部數據區域：濕度與風速 (優化後的 RWD 網格) */}
+      {/* 底部數據區域：Humidity, Precipitation 與 Wind (優化後的佈局) */}
       <div
-        className={`grid grid-cols-2 max-[425px]:grid-cols-1 gap-8 pt-8 border-t-2 ${gridBorderClasses}`}
+        className={`grid grid-cols-3 gap-2 pt-8 border-t-2 ${gridBorderClasses}`}
       >
         <div className="flex flex-col">
           <span
-            className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${metaLabelClasses}`}
+            className={`text-[10px] font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
           >
             Humidity
           </span>
-          <span className="text-2xl font-black tracking-tighter">
+          <span className="text-xl font-black tracking-tighter">
             {item.humidity}%
           </span>
         </div>
         <div className="flex flex-col">
           <span
-            className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${metaLabelClasses}`}
+            className={`text-[10px] font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
           >
-            Wind Speed
+            Precipitation
           </span>
-          <span className="text-2xl font-black tracking-tighter">
+          <span className="text-xl font-black tracking-tighter">
+            {item.precipitation}%
+          </span>
+        </div>
+        <div className="flex flex-col">
+          <span
+            className={`text-[10px] font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
+          >
+            Wind
+          </span>
+          <span className="text-xl font-black tracking-tighter">
             {item.windSpeed}
-            <small className="ml-1 text-xs font-bold opacity-40">km/h</small>
+            <small className="ml-0.5 text-[10px] font-bold opacity-40">
+              km/h
+            </small>
           </span>
         </div>
       </div>

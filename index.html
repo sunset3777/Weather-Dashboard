@@ -1,36 +1,50 @@
-<!doctype html>
-<html lang="zh-TW" prefix="og: http://ogp.me/ns#">
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="https://sunset3777.github.io/Weather-Dashboard/weather-svgrepo-com.svg" />
+    <link rel="icon" type="image/svg+xml" href="/weather-svgrepo-com.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- 基礎 SEO -->
-    <title>Weather Dashboard | 即時全球天氣資訊中心 - 精確氣象預報與動態地圖體驗</title>
-    <meta name="description" content="專業級即時天氣儀表板，整合全球城市搜尋、動態 5 日預報、降雨趨勢分析與互動式地圖。專為注重數據視覺化與 RWD 閱讀體驗的使用者設計，提供直覺且穩定的氣象資訊查詢服務。" />
-    <meta name="keywords" content="天氣, 氣象預報, 儀表板, React, Tailwind, Weather Dashboard, 降雨機率, 氣象資訊" />
-    <link rel="canonical" href="https://sunset3777.github.io/Weather-Dashboard/" />
 
-    <!-- Open Graph (社群分享) -->
-    <meta property="og:site_name" content="Weather Dashboard" />
+    <!-- Basic SEO -->
+    <title>Weather Dashboard | Global Real-time Weather Center - Precise Forecasts & Dynamic Maps</title>
+    <meta name="description" content="Professional real-time weather dashboard featuring global city search, dynamic 5-day forecasts, precipitation trend analysis, and interactive maps. Designed for data visualization and RWD reading experience." />
+    <meta name="keywords" content="Weather, Forecast, Dashboard, React, Tailwind, Weather Dashboard, Precipitation, Meteorologic Information" />
+
+    <!-- Open Graph (Social Sharing) -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Weather Dashboard | 即時全球天氣資訊中心 - 掌握精確的氣象趨勢預報" />
-    <meta property="og:description" content="整合全球即時氣象數據、動態降雨圖表與互動地圖，提供專業的氣象監控體驗。支援多種設備瀏覽，確保在不同環境下皆能獲得流暢的數據分析與佈局呈現。" />
-    <meta property="og:image" content="https://sunset3777.github.io/Weather-Dashboard/weather-svgrepo-com.svg" />
-    <meta property="og:url" content="https://sunset3777.github.io/Weather-Dashboard/" />
+    <meta property="og:title" content="Weather Dashboard | Global Real-time Weather Center" />
+    <meta property="og:description" content="Integrated global real-time weather data, dynamic precipitation charts, and interactive maps for a professional monitoring experience." />
+    <meta property="og:image" content="/weather-svgrepo-com.svg" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Weather Dashboard | 即時全球天氣資訊中心 - 掌握精確氣象趨勢" />
-    <meta name="twitter:description" content="提供全球即時氣象數據、動態降雨圖表與互動地圖，實現專業的氣象資訊分析與直覺的數據呈現效果。" />
-    <meta name="twitter:image" content="https://sunset3777.github.io/Weather-Dashboard/weather-svgrepo-com.svg" />
+    <meta name="twitter:title" content="Weather Dashboard | Precise Meteorological Trends" />
+    <meta name="twitter:description" content="Global real-time weather data, dynamic precipitation charts, and interactive maps with intuitive data presentation." />
+    <meta name="twitter:image" content="/weather-svgrepo-com.svg" />
 
-
-    <meta name="theme-color" content="#f9fafb" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>
+    <script type="text/javascript">
+      // 避免 Dark Mode 在 JS 載入前閃爍 (Flash of unstyled content)
+      (function () {
+        const isDark =
+          localStorage.getItem('weather-dashboard-theme') === 'dark' ||
+          (!('weather-dashboard-theme' in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

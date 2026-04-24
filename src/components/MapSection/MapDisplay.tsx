@@ -33,20 +33,13 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
             src={googleMapUrl}
             alt={`Map of ${selectedCity}`}
             key={googleMapUrl}
-            className="absolute inset-0 w-full h-full object-cover opacity-60 transition-all duration-1000 grayscale hover:grayscale-0 animate-in fade-in zoom-in-95"
+            className="absolute inset-0 w-full h-full object-cover opacity-100 transition-all duration-1000 grayscale-0 animate-in fade-in zoom-in-95"
             onError={(e) => {
               (e.target as HTMLImageElement).src =
                 'https://placehold.co/800x450/171717/404040?text=MAP+LOAD+ERROR';
             }}
           />
         )}
-
-        {/* 科技感標註 (Overlay) */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 flex items-center justify-center opacity-40">
-            <div className="w-24 h-24 border border-sky-500/20 rounded-full animate-pulse"></div>
-          </div>
-        </div>
 
         {/* 縮放控制器 */}
         <div className="absolute top-6 right-6 flex flex-col gap-2">
