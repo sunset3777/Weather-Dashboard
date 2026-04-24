@@ -1,8 +1,8 @@
 import { MapPin } from 'lucide-react';
-import { WeatherReport } from '../types/weather';
-import { useMapLocation } from '../hooks/useMapLocation';
-import { CityList } from './MapSection/CityList';
-import { MapDisplay } from './MapSection/MapDisplay';
+import { WeatherReport } from '../../types/weather';
+import { useMapLocation } from '../../hooks/useMapLocation';
+import { CityList } from '../features/CityList';
+import { MapDisplay } from '../features/MapDisplay';
 
 interface MapSectionProps {
   onCitySelect: (city: string) => void;
@@ -36,17 +36,17 @@ const MapSection: React.FC<MapSectionProps> = ({
                   區域索引系統
                 </span>
               </span>
-            </div>
-            <h2 className="text-3xl font-black uppercase tracking-tight text-neutral-900 dark:text-white">
+              </div>
+              <h2 className="text-3xl font-black uppercase tracking-tight text-neutral-900 dark:text-white">
               Regional{' '}
               <span className="text-neutral-500 italic font-light">
                 Distribution
               </span>
-            </h2>
-          </div>
-          <div className="text-base font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest pb-1">
-            Lat. {lat.toFixed(2)}° N / Long. {lon.toFixed(2)}° E
-          </div>
+              </h2>
+              </div>
+              <div className="text-base font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest pb-1">
+              Lat. {lat.toFixed(2)}° N / Long. {lon.toFixed(2)}° E
+              </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">

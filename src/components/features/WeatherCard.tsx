@@ -50,7 +50,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
 
   return (
     <div
-      className={`flex-shrink-0 w-72 md:w-80 p-8 rounded-[3.5rem] shadow-2xl transition-all duration-500 snap-center border-2 pointer-events-none ${containerClasses}`}
+      className={`flex-shrink-0 w-80 md:w-96 p-10 rounded-[3.5rem] shadow-2xl transition-all duration-500 snap-center border-2 pointer-events-none ${containerClasses}`}
     >
       {/* 標題區域：日期與天氣圖示 */}
       <div className="flex justify-between items-start mb-12">
@@ -61,7 +61,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
             {item.day}
           </h3>
           <p
-            className={`text-[10px] font-black uppercase tracking-[0.2em] mt-2 ${dateClasses}`}
+            className={`text-base font-black uppercase tracking-[0.2em] mt-2 ${dateClasses}`}
           >
             {item.date}
           </p>
@@ -94,7 +94,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
       >
         <div className="flex flex-col">
           <span
-            className={`text-[10px] font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
+            className={`text-base font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
           >
             Humidity
           </span>
@@ -104,7 +104,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
         </div>
         <div className="flex flex-col">
           <span
-            className={`text-[10px] font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
+            className={`text-base font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
           >
             Precipitation
           </span>
@@ -114,15 +114,13 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
         </div>
         <div className="flex flex-col">
           <span
-            className={`text-[10px] font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
+            className={`text-base font-black uppercase tracking-wider mb-2 ${metaLabelClasses}`}
           >
             Wind
           </span>
           <span className="text-xl font-black tracking-tighter">
             {item.windSpeed}
-            <small className="ml-0.5 text-[10px] font-bold opacity-40">
-              km/h
-            </small>
+            <small className="ml-1 text-base font-bold opacity-40">km/h</small>
           </span>
         </div>
       </div>

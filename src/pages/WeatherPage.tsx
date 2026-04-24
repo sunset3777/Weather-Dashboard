@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Header from '../components/Header';
-import Hero from '../components/Hero';
-import MapSection from '../components/MapSection';
-import Footer from '../components/Footer';
-import ErrorBoundary from '../components/ErrorBoundary';
+import Header from '../components/layout/Header';
+import Hero from '../components/layout/Hero';
+import MapSection from '../components/layout/MapSection';
+import Footer from '../components/layout/Footer';
+import ErrorBoundary from '../components/ui/ErrorBoundary';
 import { useWeatherDashboard } from '../hooks/useWeatherDashboard';
 
 /**
@@ -51,7 +51,7 @@ const WeatherPage: React.FC = () => {
                     </p>
                     <button
                       onClick={() => window.location.reload()}
-                      className="mt-4 px-4 py-2 bg-neutral-200 dark:bg-neutral-800 rounded-md text-sm font-bold"
+                      className="mt-4 px-4 py-2 bg-neutral-200 dark:bg-neutral-800 rounded-md text-base font-bold"
                     >
                       Reload System
                     </button>

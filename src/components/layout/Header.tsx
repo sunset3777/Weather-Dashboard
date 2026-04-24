@@ -1,5 +1,5 @@
-import { useCitySearch } from '../hooks/useCitySearch';
-import { SuggestionDropdown } from './Header/SuggestionDropdown';
+import { useCitySearch } from '../../hooks/useCitySearch';
+import { SuggestionDropdown } from '../features/SuggestionDropdown';
 
 interface HeaderProps {
   onSearch: (city: string) => void;

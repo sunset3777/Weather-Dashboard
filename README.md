@@ -5,7 +5,7 @@
 ## 🌟 核心功能
 
 - **全球城市搜尋 (Autocomplete)**：整合 OpenWeatherMap Geocoding API，支援全球城市建議，並具備 500ms Debounce 效能優化。
-- **即時天氣與 5 日預報**：提供精確的溫度、濕度、風速及降雨機率變化圖表。
+- **即時天氣與 5 日預報**：提供精確的溫度、濕度、風速變化。
 - **動態主題切換 (Dark Mode)**：全站支援亮暗模式，具備平滑的顏色過渡效果。
 - **互動式地圖 (Google Maps)**：自動定位所選城市座標，支援多層級縮放視角。
 - **RWD 佈局**：針對行動裝置進行深度優化（如 425px 斷點下的數據堆疊處理）。
@@ -15,7 +15,6 @@
 - **核心框架**: React 18 (Function Components)
 - **開發工具**: Vite, TypeScript
 - **樣式處理**: Tailwind CSS v3 (含 Dark Mode 支援)
-- **圖表視覺化**: Recharts (響應式降雨圖表)
 - **圖示庫**: Lucide React
 - **資料來源**: OpenWeatherMap API, Google Maps Static API
 
@@ -27,7 +26,7 @@
 src/
  ├─ components/
  │   ├─ ui/           # 原子組件 (如 WeatherIcon.tsx)
- │   ├─ features/     # 功能模組 (如 WeatherCard, PrecipitationChart, CityList)
+ │   ├─ features/     # 功能模組 (如 WeatherCard, CityList)
  │   └─ layout/       # 頁面大框架 (Header, Hero, MapSection, Footer)
  ├─ hooks/            # 業務邏輯抽離 (useWeatherDashboard, useCitySearch, useMapLocation)
  ├─ pages/            # 頁面容器 (WeatherPage.tsx)
@@ -53,7 +52,7 @@ src/
 
 ## 🎨 UI/UX & SEO 優化
 
-- **視覺直覺**：整合降雨機率資訊，簡化數據層次；介面不顯示冗餘的版本號。
+- **視覺直覺**：簡化數據層次；介面不顯示冗餘的版本號。
 - **閱讀體驗**：桌面版字體最小維持 **16px**；互動功能（如卡片拖曳）以提升操作直覺為首要目標。
 - **SEO 強化**：完整實作 Open Graph (OG) Tags，確保社群分享內容精確。
 - **細節導向**：地圖遮罩、轉場動畫等小功能在不影響效能前提下儘可能優化。

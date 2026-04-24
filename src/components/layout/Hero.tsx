@@ -1,6 +1,6 @@
 import { Loader2 } from 'lucide-react';
-import { useWeather } from '../hooks/useWeather';
-import HeroWeatherCardList from './HeroWeatherCard';
+import { useWeather } from '../../hooks/useWeather';
+import HeroWeatherCardList from '../features/HeroWeatherCard';
 
 interface HeroProps {
   selectedCity: string;
@@ -19,7 +19,7 @@ const Hero: React.FC<HeroProps> = ({ selectedCity, todayDateString }) => {
     return (
       <div className="w-full h-[600px] bg-neutral-200 dark:bg-neutral-800 flex flex-col items-center justify-center gap-4 text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
         <Loader2 className="w-12 h-12 animate-spin text-neutral-900 dark:text-neutral-100" />
-        <p className="text-sm font-black uppercase tracking-widest italic">
+        <p className="text-base font-black uppercase tracking-widest italic">
           Syncing Data...
         </p>
       </div>

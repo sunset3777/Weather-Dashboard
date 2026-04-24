@@ -25,7 +25,7 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
     <div className="lg:col-span-2 flex flex-col gap-4">
       <div className="relative aspect-[16/9] bg-neutral-800 border border-neutral-700 group overflow-hidden">
         {!GOOGLE_MAPS_API_KEY ? (
-          <div className="absolute inset-0 flex items-center justify-center text-neutral-500 font-black uppercase tracking-widest text-xs">
+          <div className="absolute inset-0 flex items-center justify-center text-neutral-500 font-black uppercase tracking-wider text-base">
             Missing Google Maps API Key
           </div>
         ) : (
@@ -57,7 +57,7 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
               <button
                 key={btn.val}
                 onClick={() => setZoom(btn.val)}
-                className={`px-3 py-1 text-[8px] font-black border transition-all ${btnClasses}`}
+                className={`px-3 py-1 text-base font-black border transition-all ${btnClasses}`}
               >
                 {btn.label}
               </button>
@@ -67,22 +67,22 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
 
         {/* 右下角數據標籤 */}
         <div className="absolute bottom-6 right-6 bg-neutral-900/90 backdrop-blur-md border border-neutral-700 px-4 py-2 flex flex-col items-end">
-          <p className="text-sky-500 font-black uppercase tracking-widest text-[9px] mb-1">
+          <p className="text-sky-500 font-black uppercase tracking-wider text-base mb-1">
             Target Identified
           </p>
-          <p className="text-white font-black uppercase tracking-tight text-[11px]">
+          <p className="text-white font-black uppercase tracking-tight text-base">
             {selectedCity}
           </p>
-          <p className="text-neutral-500 font-mono text-[7px] mt-1 uppercase">
+          <p className="text-neutral-500 font-mono text-base mt-1 uppercase">
             LOC: {lat.toFixed(4)}N / {lon.toFixed(4)}E
           </p>
         </div>
       </div>
 
-      <div className="flex justify-between items-center text-[8px] font-bold text-neutral-500 uppercase tracking-[0.2em]">
+      <div className="flex justify-between items-center text-base font-bold text-neutral-500 uppercase tracking-wider">
         <span>PROVIDER: GOOGLE EARTH IMAGERY SERVICE</span>
         <div className="flex gap-4">
-          <span className="text-sky-500 animate-pulse uppercase tracking-[0.3em]">
+          <span className="text-sky-500 animate-pulse uppercase tracking-wider">
             Satellite Link: Active
           </span>
         </div>
