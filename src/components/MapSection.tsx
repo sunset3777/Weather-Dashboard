@@ -1,4 +1,3 @@
-import React from 'react';
 import { MapPin } from 'lucide-react';
 import { WeatherReport } from '../types/weather';
 import { useMapLocation } from '../hooks/useMapLocation';

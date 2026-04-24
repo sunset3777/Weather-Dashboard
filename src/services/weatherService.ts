@@ -17,7 +17,7 @@ interface OpenWeatherMapItem {
   wind: {
     speed: number;
   };
-  pop: number; // 降雨機率 (0-1)
+  pop: number; // Precipitation probability (0-1)
 }
 
 interface OpenWeatherMapResponse {
@@ -31,7 +31,7 @@ interface OpenWeatherMapResponse {
   };
 }
 
-// 將 OpenWeatherMap 的天氣名稱映射到我們 UI 的 Condition
+// Map OpenWeatherMap weather names to our UI Conditions
 const mapCondition = (main: string): DailyForecast['condition'] => {
   const map: Record<string, DailyForecast['condition']> = {
     Clear: 'Clear',
@@ -45,7 +45,7 @@ const mapCondition = (main: string): DailyForecast['condition'] => {
 };
 
 /**
- * 數據轉換：處理每小時預報 (將 3小時步長 轉為 連續5小時)
+ * Data Transformation: Process hourly forecast (convert 3h steps to consecutive 5h)
  */
 const transformHourlyData = (list: OpenWeatherMapItem[]): HourlyForecast[] => {
   const hourly: HourlyForecast[] = [];
@@ -72,7 +72,7 @@ const transformHourlyData = (list: OpenWeatherMapItem[]): HourlyForecast[] => {
 };
 
 /**
- * 數據轉換：處理每日預報 (5天預報)
+ * Data Transformation: Process daily forecast (5-day forecast)
  */
 const transformWeeklyData = (list: OpenWeatherMapItem[]): DailyForecast[] => {
   const weekly: DailyForecast[] = [];
@@ -88,7 +88,8 @@ const transformWeeklyData = (list: OpenWeatherMapItem[]): DailyForecast[] => {
       temp: Math.round(item.main.temp),
       condition: mapCondition(item.weather[0].main),
       humidity: item.main.humidity,
-      wind: Math.round(item.wind.speed * 3.6),
+      windSpeed: Math.round(item.wind.speed * 3.6),
+      precipitation: Math.round(item.pop * 100),
     });
   }
   return weekly;
@@ -96,11 +97,11 @@ const transformWeeklyData = (list: OpenWeatherMapItem[]): DailyForecast[] => {
 
 export interface CitySuggestion {
   name: string;
-  chineseName?: string;
   lat: number;
   lon: number;
   country: string;
   state?: string;
+  chineseName?: string;
 }
 
 interface GeocodingApiResponse {
@@ -113,7 +114,7 @@ interface GeocodingApiResponse {
 }
 
 /**
- * 搜尋城市建議 (Geocoding API)
+ * Fetch city suggestions (Geocoding API)
  */
 export const fetchCitySuggestions = async (
   query: string,
@@ -131,18 +132,17 @@ export const fetchCitySuggestions = async (
 
     const data: GeocodingApiResponse[] = await response.json();
     return data.map((item) => {
-      // 優先順序：1. 英文名 (en) 2. 原始名稱 (name)
       const englishName = item.local_names?.en || item.name;
-      // 獲取中文名稱 (zh)
-      const chineseName = item.local_names?.zh;
+      const chineseName =
+        item.local_names?.zh || item.local_names?.['zh-tw'] || undefined;
 
       return {
         name: englishName,
-        chineseName: chineseName, // 新增中文名稱欄位
         lat: item.lat,
         lon: item.lon,
         country: item.country,
         state: item.state,
+        chineseName,
       };
     });
   } catch (error) {
@@ -156,7 +156,7 @@ export const fetchWeatherReport = async (
 ): Promise<WeatherReport> => {
   if (!API_KEY) {
     throw new Error(
-      '找不到 API Key。請確保 .env 檔案存在且包含 VITE_WEATHER_API_KEY，並重啟開發伺服器。',
+      'API Key not found. Please ensure .env exists with VITE_WEATHER_API_KEY and restart the dev server.',
     );
   }
 
@@ -169,9 +169,9 @@ export const fetchWeatherReport = async (
 
     if (!response.ok) {
       if (response.status === 404) {
-        throw new Error('找不到該城市，請重新輸入。');
+        throw new Error('City not found, please try again.');
       }
-      throw new Error('無法取得氣象數據，請稍後再試。');
+      throw new Error('Unable to fetch weather data, please try again later.');
     }
 
     const rawData: OpenWeatherMapResponse = await response.json();

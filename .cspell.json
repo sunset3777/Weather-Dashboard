@@ -1,0 +1,6 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": ["svgrepo", "WeatherDash", "lucide", "vitejs", "tailwindcss"],
+  "ignorePaths": ["node_modules", "dist", ".git"]
+}

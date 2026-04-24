@@ -18,4 +18,4 @@ module.exports = {
     'prettier/prettier': 'error',
     '@typescript-eslint/no-explicit-any': 'error', // 遵守 Gemini.md: 禁止 any
   },
-}
+};

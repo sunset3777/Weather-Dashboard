@@ -1,21 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useWeather } from './useWeather';
+
+const THEME_KEY = 'weather-dashboard-theme';
 
 /**
  * useWeatherDashboard Hook
- * 集中管理天氣儀表板的全域狀態：
- * 1. 當前所選城市 (selectedCity)
- * 2. 亮暗模式 (isDark)
- * 3. 天氣數據獲取與載入狀態 (weatherData)
  */
 export const useWeatherDashboard = () => {
   const [selectedCity, setSelectedCity] = useState('Taipei City');
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+    // 初始化時從 localStorage 獲取偏好，若無則預設為 true (符合專案風格)
+    const saved = localStorage.getItem(THEME_KEY);
+    return saved ? saved === 'dark' : true;
+  });
 
-  // 整合原有的 useWeather Hook
+  // 當 isDark 改變時，同步到 DOM 並存入 localStorage
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem(THEME_KEY, 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem(THEME_KEY, 'light');
+    }
+  }, [isDark]);
+
+  // 獲取當前日期的英文格式 (如: Apr 08)
+  const todayDateString = new Date().toLocaleDateString('en-US', {
+    timeZone: 'Asia/Taipei',
+    month: 'short',
+    day: '2-digit',
+  });
+
   const { data: weatherData, loading, error } = useWeather(selectedCity);
 
-  const toggleDarkMode = () => setIsDark(!isDark);
+  const toggleDarkMode = () => setIsDark((prev) => !prev);
 
   return {
     selectedCity,
@@ -25,5 +44,6 @@ export const useWeatherDashboard = () => {
     weatherData,
     loading,
     error,
+    todayDateString,
   };
 };
