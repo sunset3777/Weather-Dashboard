@@ -30,9 +30,9 @@ const MapSection: React.FC<MapSectionProps> = ({
           <div>
             <div className="flex items-center gap-2 mb-2 text-neutral-500 dark:text-neutral-400 group cursor-default">
               <MapPin className="w-3.5 h-3.5 group-hover:text-sky-500 transition-colors" />
-              <span className="text-[10px] font-black tracking-[0.3em] uppercase">
+              <span className="text-base font-black tracking-[0.1em] uppercase">
                 REGIONAL INDEX{' '}
-                <span className="text-[8px] font-bold ml-2 opacity-50">
+                <span className="text-base font-bold ml-2 opacity-50">
                   區域索引系統
                 </span>
               </span>
@@ -44,7 +44,7 @@ const MapSection: React.FC<MapSectionProps> = ({
               </span>
             </h2>
           </div>
-          <div className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest pb-1">
+          <div className="text-base font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest pb-1">
             Lat. {lat.toFixed(2)}° N / Long. {lon.toFixed(2)}° E
           </div>
         </div>

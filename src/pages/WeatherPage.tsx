@@ -51,7 +51,7 @@ const WeatherPage: React.FC = () => {
                     </p>
                     <button
                       onClick={() => window.location.reload()}
-                      className="mt-4 px-4 py-2 bg-neutral-200 dark:bg-neutral-800 rounded-md text-sm font-bold"
+                      className="mt-4 px-4 py-2 bg-neutral-200 dark:bg-neutral-800 rounded-md text-base font-bold"
                     >
                       Reload System
                     </button>

@@ -26,7 +26,7 @@ export const SuggestionDropdown: React.FC<SuggestionDropdownProps> = ({
           className="px-4 py-3 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer flex items-center justify-between group transition-colors"
         >
           <div className="flex flex-col">
-            <span className="text-sm font-black text-neutral-900 dark:text-neutral-100">
+            <span className="text-base font-black text-neutral-900 dark:text-neutral-100">
               {city.name}
               {city.chineseName && (
                 <span className="ml-2 text-neutral-400 dark:text-neutral-500 font-medium">
@@ -34,12 +34,12 @@ export const SuggestionDropdown: React.FC<SuggestionDropdownProps> = ({
                 </span>
               )}
             </span>
-            <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
+            <span className="text-base font-bold text-neutral-500 uppercase tracking-wider">
               {city.state ? `${city.state}, ` : ''}
               {city.country}
             </span>
           </div>
-          <span className="text-[9px] font-mono text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-base font-mono text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity">
             {city.lat.toFixed(2)}, {city.lon.toFixed(2)}
           </span>
         </div>

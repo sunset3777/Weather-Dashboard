@@ -21,7 +21,7 @@ const Footer: React.FC<FooterProps> = ({ hasError = false }) => {
           <div className="flex items-center gap-6">
             <div className="flex items-center space-x-2 text-neutral-900 dark:text-neutral-100">
               <Cloud className="w-4 h-4 opacity-70" />
-              <span className="text-sm font-black tracking-tighter uppercase">
+              <span className="text-base font-black tracking-tighter uppercase">
                 WeatherDash
               </span>
             </div>
@@ -32,14 +32,14 @@ const Footer: React.FC<FooterProps> = ({ hasError = false }) => {
                   hasError ? 'bg-red-500' : 'bg-green-500'
                 }`}
               ></div>
-              <span className="text-[9px] font-black uppercase tracking-widest opacity-60">
+              <span className="text-base font-black uppercase tracking-wider opacity-60">
                 {hasError ? 'System Shutdown' : 'System Active'}
               </span>
             </div>
           </div>
 
           {/* Right: Copyright & Meta */}
-          <div className="flex flex-col md:items-end gap-1 text-[9px] font-bold uppercase tracking-[0.2em] opacity-50">
+          <div className="flex flex-col md:items-end gap-1 text-base font-bold uppercase tracking-wider opacity-50">
             <div>&copy; {currentYear} WeatherDash Intelligence.</div>
             <div className="flex gap-3 mt-1 justify-center md:justify-end">
               <span>Regional Intelligence System</span>

@@ -16,10 +16,10 @@ export const CityList: React.FC<CityListProps> = ({
 }) => {
   return (
     <div className="lg:col-span-1 flex flex-col gap-6">
-      <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-neutral-600 dark:text-neutral-200 flex items-center gap-4">
+      <h3 className="text-base font-black uppercase tracking-wider text-neutral-600 dark:text-neutral-200 flex items-center gap-4">
         RECOMMENDED CITIES
         <span className="w-8 h-[1px] bg-neutral-300 dark:bg-neutral-500"></span>
-        <span className="text-[8px] font-bold text-neutral-400">
+        <span className="text-base font-bold text-neutral-400">
           推薦城市清單
         </span>
       </h3>
@@ -58,11 +58,11 @@ export const CityList: React.FC<CityListProps> = ({
                   >
                     {city.name}
                   </h4>
-                  <span className="text-xs font-bold text-neutral-500">
+                  <span className="text-base font-bold text-neutral-500">
                     {city.chineseName}
                   </span>
                 </div>
-                <p className="text-[10px] font-bold text-neutral-400 uppercase mt-1 tracking-widest">
+                <p className="text-base font-bold text-neutral-400 uppercase mt-1 tracking-widest">
                   {city.status}
                 </p>
               </div>
