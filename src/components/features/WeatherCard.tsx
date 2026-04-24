@@ -120,7 +120,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ item, isToday }) => {
           </span>
           <span className="text-xl font-black tracking-tighter">
             {item.windSpeed}
-            <small className="ml-0.5 text-base font-bold opacity-40">km/h</small>
+            <small className="ml-1 text-base font-bold opacity-40">km/h</small>
           </span>
         </div>
       </div>

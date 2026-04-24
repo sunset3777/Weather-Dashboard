@@ -1,6 +1,6 @@
 import { Loader2 } from 'lucide-react';
-import { useWeather } from '../hooks/useWeather';
-import HeroWeatherCardList from './HeroWeatherCard';
+import { useWeather } from '../../hooks/useWeather';
+import HeroWeatherCardList from '../features/HeroWeatherCard';
 
 interface HeroProps {
   selectedCity: string;

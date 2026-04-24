@@ -1,6 +1,6 @@
-import { useDraggableScroll } from '../hooks/useDraggableScroll';
-import { WeatherReport } from '../types/weather';
-import { WeatherCard } from './features/WeatherCard';
+import { useDraggableScroll } from '../../hooks/useDraggableScroll';
+import { WeatherReport } from '../../types/weather';
+import { WeatherCard } from './WeatherCard';
 
 interface HeroLeftProps {
   data: WeatherReport;
