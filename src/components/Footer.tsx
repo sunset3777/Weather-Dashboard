@@ -1,9 +1,16 @@
 import { Cloud } from 'lucide-react';
 
 /**
+ *  Footer 元件介面
+ */
+interface FooterProps {
+  hasError?: boolean;
+}
+
+/**
  *  Footer 元件
  */
-const Footer: React.FC = () => {
+const Footer: React.FC<FooterProps> = ({ hasError = false }) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -20,9 +27,13 @@ const Footer: React.FC = () => {
             </div>
             <div className="h-4 w-[1px] bg-neutral-300 dark:bg-neutral-700 hidden md:block"></div>
             <div className="flex items-center gap-2">
-              <div className="w-1 h-1 rounded-full bg-green-500 animate-pulse"></div>
+              <div
+                className={`w-1 h-1 rounded-full animate-pulse ${
+                  hasError ? 'bg-red-500' : 'bg-green-500'
+                }`}
+              ></div>
               <span className="text-[9px] font-black uppercase tracking-widest opacity-60">
-                System Active
+                {hasError ? 'System Shutdown' : 'System Active'}
               </span>
             </div>
           </div>
